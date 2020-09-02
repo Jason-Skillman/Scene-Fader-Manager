@@ -70,13 +70,32 @@ public class SceneLoaderManager : MonoBehaviour {
 		animator.SetTrigger("fadeIn");
 		
 		fadeFinished = delegate {
-			StartCoroutine(Load(sceneName));
+			StartCoroutine(LoadSingle(sceneName));
+
+			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
+		};
+	}
+	
+	public void LoadSceneAdditive(params string[] scenes) {
+		//Block flow of control if the scene loader is already loading
+		if(IsOn) {
+			Debug.Log("Scene is already loading");
+			return;
+		}
+		
+		IsOn = true;
+		canvasGroup.blocksRaycasts = true;
+		
+		animator.SetTrigger("fadeIn");
+		
+		fadeFinished = delegate {
+			StartCoroutine(LoadAdd(scenes));
 
 			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
 		};
 	}
 
-	private IEnumerator Load(string sceneName) {
+	private IEnumerator LoadSingle(string sceneName) {
 		yield return null;
 
 		float time = 0;
@@ -87,11 +106,9 @@ public class SceneLoaderManager : MonoBehaviour {
 		//Don't let the Scene activate until you allow it to
 		asyncOperation.allowSceneActivation = false;
 		
-		//When the load is still in progress, output the Text and progress bar
 		while(!asyncOperation.isDone) {
 			//Keep track of how much time has gone by
 			time += Time.deltaTime;
-			//Debug.Log("t: " + time);
 			
 			//Update the async progress
 			ProgressClamp = asyncOperation.progress;
@@ -116,6 +133,50 @@ public class SceneLoaderManager : MonoBehaviour {
 		}
 	}
 
+	private IEnumerator LoadAdd(params string[] scenes) {
+		yield return null;
+
+		float time = 0;
+
+		List<AsyncOperation> listOperations = new List<AsyncOperation>();
+
+		//Load all of operations
+		foreach(string sceneName in scenes) {
+			//Begin to load the Scene you specify
+			AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+			listOperations.Add(asyncOperation);
+			
+			//Don't let the Scene activate until you allow it to
+			asyncOperation.allowSceneActivation = false;
+			
+			while(asyncOperation.progress < 0.9f) {
+				time += Time.deltaTime;
+				yield return null;
+			}
+		}
+
+		//Activate all of the operations
+		foreach(AsyncOperation operation in listOperations) {
+			operation.allowSceneActivation = true;
+			
+			while(!operation.isDone) {
+				time += Time.deltaTime;
+				yield return null;
+			}
+		}
+
+		//Wait for the min time
+		while(true) {
+			if(time >= minWaitTime)
+				break;
+			
+			time += Time.deltaTime;
+			yield return null;
+		}
+		
+		FadeOut();
+	}
+	
 	private void FadeOut() {
 		IsOn = false;
 		canvasGroup.blocksRaycasts = false;

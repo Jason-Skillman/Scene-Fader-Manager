@@ -20,9 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d48c4f28-a1ab-42e1-984b-7c9093b3abfe" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/Canvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/Canvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +35,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation/AnimationEvent.cs" root0="FORCE_HIGHLIGHTING" />
@@ -41,8 +44,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation/AnimationEvent.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" />
       </list>
     </option>
   </component>
@@ -81,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599066866792</updated>
-      <workItem from="1599066887546" duration="9982000" />
+      <workItem from="1599066887546" duration="11745000" />
     </task>
     <servers />
   </component>
