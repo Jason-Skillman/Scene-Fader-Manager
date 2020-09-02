@@ -34,30 +34,33 @@ public class SceneLoaderManager : MonoBehaviour {
 	private void Start() {
 		IsOn = false;
 		canvasGroup.blocksRaycasts = false;
+		
+		if(loadingScreenRef == null) {
+			loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
+		}
 	}
 
 	void Update() {
-		if(Input.GetKeyDown(KeyCode.Space)) {
-			IsOn = false;
-			canvasGroup.blocksRaycasts = false;
-			
-			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
-			animator.SetTrigger("fadeOut");
+		if(Input.GetKeyDown(KeyCode.H)) {
+			FadeOut();
 		}
 	}
 
 	public void LoadScene(string sceneName) {
+		//Block flow of control if the scene loader is already loading
+		if(IsOn) {
+			Debug.Log("Scene is already loading");
+			return;
+		}
+		
 		IsOn = true;
 		canvasGroup.blocksRaycasts = true;
 		
 		animator.SetTrigger("fadeIn");
 		
 		fadeFinished = delegate {
-			//StartCoroutine(Load(sceneName));
-			
-			if(loadingScreenRef == null) {
-				loadingScreenRef = Instantiate(prefabLoadingScreen);
-			}
+			StartCoroutine(Load(sceneName));
+
 			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
 		};
 	}
@@ -85,13 +88,25 @@ public class SceneLoaderManager : MonoBehaviour {
 				Debug.Log("Press the space bar to continue");
 				
 				//Wait to you press the space key to activate the Scene
-				if(Input.GetKeyDown(KeyCode.Space))
+				if(Input.GetKeyDown(KeyCode.Space)) {
 					//Activate the Scene
 					asyncOperation.allowSceneActivation = true;
+
+					FadeOut();
+				}
+				
 			}
 
 			yield return null;
 		}
+	}
+
+	private void FadeOut() {
+		IsOn = false;
+		canvasGroup.blocksRaycasts = false;
+			
+		loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
+		animator.SetTrigger("fadeOut");
 	}
 	
 	/// <summary>
