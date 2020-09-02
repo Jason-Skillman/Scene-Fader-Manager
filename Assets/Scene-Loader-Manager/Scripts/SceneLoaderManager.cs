@@ -9,30 +9,58 @@ public class SceneLoaderManager : MonoBehaviour {
 
 	public static SceneLoaderManager Instance { get; private set; }
 
+	public GameObject prefabLoadingScreen;
+
+	[Header("References")]
+	public GameObject canvas;
+	
 	private Animator animator;
+	private CanvasGroup canvasGroup;
 
 	private Action fadeFinished;
+	private GameObject loadingScreenRef;
+	
+	public bool IsOn { get; private set; }
 
 	void Awake() {
 		if(Instance == null) Instance = this;
 		else Destroy(gameObject);
 		DontDestroyOnLoad(gameObject);
+		
+		animator = canvas.GetComponent<Animator>();
+		canvasGroup = canvas.GetComponent<CanvasGroup>();
+	}
 
-		animator = GetComponent<Animator>();
+	private void Start() {
+		IsOn = false;
+		canvasGroup.blocksRaycasts = false;
 	}
 
 	void Update() {
+		if(Input.GetKeyDown(KeyCode.Space)) {
+			IsOn = false;
+			canvasGroup.blocksRaycasts = false;
+			
+			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
+			animator.SetTrigger("fadeOut");
+		}
 	}
 
 	public void LoadScene(string sceneName) {
-		fadeFinished = () => {
+		IsOn = true;
+		canvasGroup.blocksRaycasts = true;
+		
+		animator.SetTrigger("fadeIn");
+		
+		fadeFinished = delegate {
 			//StartCoroutine(Load(sceneName));
-			Debug.Log("done");
+			
+			if(loadingScreenRef == null) {
+				loadingScreenRef = Instantiate(prefabLoadingScreen);
+			}
+			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
 		};
-		animator.SetTrigger("fadeOut");
 	}
-
-	
 
 	private IEnumerator Load(string sceneName) {
 		yield return null;
@@ -69,8 +97,15 @@ public class SceneLoaderManager : MonoBehaviour {
 	/// <summary>
 	/// Called externally by the animation
 	/// </summary>
-	private void AnimationFinished() {
-		fadeFinished();
+	public void AnimationFinished() {
+		if(fadeFinished != null) {
+			fadeFinished();
+			
+			//Clear the event
+			//fadeFinished = delegate { };
+			fadeFinished = null;
+		}
+		
 	}
 
 }

@@ -8,6 +8,9 @@
       <e p="Assets" t="Include">
         <e p="Scene-Loader-Manager" t="Include">
           <e p="Scripts" t="Include">
+            <e p="Animation" t="Include">
+              <e p="AnimationEvent.cs" t="Include" />
+            </e>
             <e p="SceneLoaderManager.cs" t="Include" />
           </e>
         </e>
