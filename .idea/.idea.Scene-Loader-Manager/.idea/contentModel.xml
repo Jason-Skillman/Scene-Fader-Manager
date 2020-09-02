@@ -11,6 +11,9 @@
             <e p="Animation" t="Include">
               <e p="AnimationEvent.cs" t="Include" />
             </e>
+            <e p="Examples" t="Include">
+              <e p="SetProgressBar.cs" t="Include" />
+            </e>
             <e p="SceneLoaderManager.cs" t="Include" />
           </e>
         </e>

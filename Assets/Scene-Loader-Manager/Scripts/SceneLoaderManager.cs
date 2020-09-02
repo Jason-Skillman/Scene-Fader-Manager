@@ -26,27 +26,32 @@ public class SceneLoaderManager : MonoBehaviour {
 	
 	public bool IsOn { get; private set; }
 	
-	public int Progress { get; private set; }
+	public float ProgressClamp { get; private set; }
 
-	void Awake() {
+	public int Progress {
+		get {
+			return (int)(ProgressClamp * 100);
+		}
+	}
+
+	private void Awake() {
 		if(Instance == null) Instance = this;
 		else Destroy(gameObject);
 		DontDestroyOnLoad(gameObject);
 		
 		animator = canvas.GetComponent<Animator>();
 		canvasGroup = canvas.GetComponent<CanvasGroup>();
+		
+		loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
 	}
 
 	private void Start() {
 		IsOn = false;
 		canvasGroup.blocksRaycasts = false;
-		
-		if(loadingScreenRef == null) {
-			loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
-		}
 	}
 
-	void Update() {
+	private void Update() {
+		//Debug
 		if(Input.GetKeyDown(KeyCode.H)) {
 			FadeOut();
 		}
@@ -88,8 +93,8 @@ public class SceneLoaderManager : MonoBehaviour {
 			time += Time.deltaTime;
 			//Debug.Log("t: " + time);
 			
-			//Output the current progress
-			Progress = (int)(asyncOperation.progress * 100);
+			//Update the async progress
+			ProgressClamp = asyncOperation.progress;
 
 			// Check if the load has finished
 			if(asyncOperation.progress >= 0.9f) {
