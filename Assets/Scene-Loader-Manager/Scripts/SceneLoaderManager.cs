@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace SceneLoaderManagement {
@@ -38,6 +39,8 @@ namespace SceneLoaderManagement {
 		public int Progress {
 			get { return (int) (ProgressClamp * 100); }
 		}
+
+		private UnityAction g;
 
 		private void Awake() {
 			if(Instance == null) Instance = this;

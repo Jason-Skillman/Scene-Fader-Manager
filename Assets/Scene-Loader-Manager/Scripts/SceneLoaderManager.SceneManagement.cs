@@ -19,9 +19,7 @@ namespace SceneLoaderManagement {
 			animator.SetTrigger("fadeIn");
 
 			fadeFinished = delegate {
-				StartCoroutine(LoadSingle(sceneName));
-
-				loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
+				StartCoroutine(LoadSceneTask(sceneName, 1.0f));
 			};
 		}
 
@@ -44,8 +42,10 @@ namespace SceneLoaderManagement {
 			};
 		}
 
-		private IEnumerator LoadSingle(string sceneName) {
-			yield return null;
+		private IEnumerator LoadSceneTask(string sceneName, float delay = 0.0f) {
+			yield return new WaitForSeconds(delay);
+			
+			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
 
 			float time = 0;
 
@@ -74,7 +74,7 @@ namespace SceneLoaderManagement {
 
 					asyncOperation.allowSceneActivation = true;
 
-					//FadeOut();
+					FadeOut();
 				}
 
 				yield return null;

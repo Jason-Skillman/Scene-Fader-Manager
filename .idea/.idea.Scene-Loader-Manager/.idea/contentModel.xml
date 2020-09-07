@@ -16,6 +16,7 @@
               <e p="SetProgressBar.cs" t="Include" />
             </e>
             <e p="SceneLoaderManager.cs" t="Include" />
+            <e p="SceneLoaderManager.SceneManagement.cs" t="Include" />
           </e>
         </e>
         <e p="TextMesh Pro" t="Include">
