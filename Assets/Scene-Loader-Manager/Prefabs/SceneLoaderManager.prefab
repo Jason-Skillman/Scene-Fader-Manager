@@ -278,6 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minWaitTime: 3
+  fadeInSpeedMultiplier: 1
+  fadeOutSpeedMultiplier: 1
   canvas: {fileID: 6786339176588096020}
   prefabLoadingScreen: {fileID: 2045019118013952149, guid: 2d9582fcd24cc1044a29ed202742266a,
     type: 3}

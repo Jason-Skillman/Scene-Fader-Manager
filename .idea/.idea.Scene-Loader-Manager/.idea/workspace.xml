@@ -20,11 +20,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d48c4f28-a1ab-42e1-984b-7c9093b3abfe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeIn.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeIn.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeOut.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeOut.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/LoadingCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/LoadingCanvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/SceneLoaderManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/SceneLoaderManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +39,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" root0="FORCE_HIGHLIGHTING" />
@@ -45,8 +50,9 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation/AnimationEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" />
       </list>
     </option>
   </component>
@@ -60,6 +66,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
@@ -86,6 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1599066866792</updated>
       <workItem from="1599066887546" duration="11745000" />
+      <workItem from="1599441672279" duration="1220000" />
     </task>
     <servers />
   </component>
@@ -101,6 +109,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

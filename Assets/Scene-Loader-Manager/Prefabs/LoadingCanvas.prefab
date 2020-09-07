@@ -244,7 +244,6 @@ GameObject:
   - component: {fileID: 2045019118013952139}
   - component: {fileID: 2045019118013952148}
   - component: {fileID: 2045019118013952143}
-  - component: {fileID: 7207241378348016794}
   m_Layer: 5
   m_Name: LoadingCanvas
   m_TagString: Untagged
@@ -291,7 +290,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 101
   m_TargetDisplay: 0
@@ -343,7 +342,7 @@ CanvasGroup:
   m_GameObject: {fileID: 2045019118013952149}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
+  m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!95 &2045019118013952143
@@ -365,21 +364,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7207241378348016794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045019118013952149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce3d3ef26ff37014ca9b282e68639afc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEvent01:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &2045019119523651374
 GameObject:
   m_ObjectHideFlags: 0
