@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 namespace SceneLoaderManagement {
 	public partial class SceneLoaderManager {
 		
-		public void LoadScene(string sceneName) {
+		/*public void LoadScene(string sceneName) {
 			//Block flow of control if the scene loader is already loading
 			if(IsOn) {
 				Debug.Log("Scene is already loading");
@@ -21,10 +21,9 @@ namespace SceneLoaderManagement {
 			fadeFinished = delegate {
 				StartCoroutine(LoadSceneTask(sceneName, 1.0f));
 			};
-		}
+		}*/
 
 		public void LoadSceneAdditive(params string[] scenes) {
-			//Block flow of control if the scene loader is already loading
 			if(IsOn) {
 				Debug.Log("Scene is already loading");
 				return;
@@ -33,16 +32,16 @@ namespace SceneLoaderManagement {
 			IsOn = true;
 			canvasGroup.blocksRaycasts = true;
 
-			animator.SetTrigger("fadeIn");
+			animator.SetBool("isShowing", true);
 
-			fadeFinished = delegate {
-				StartCoroutine(LoadAdd(scenes));
-
-				loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
+			//Add callback when fade in has finished
+			onFadeInFinish = () => {
+				//Todo: cache ref
+				StartCoroutine(TaskLoadSceneAdditive(scenes));
 			};
 		}
 
-		private IEnumerator LoadSceneTask(string sceneName, float delay = 0.0f) {
+		/*private IEnumerator LoadSceneTask(string sceneName, float delay = 0.0f) {
 			yield return new WaitForSeconds(delay);
 			
 			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeIn");
@@ -79,9 +78,9 @@ namespace SceneLoaderManagement {
 
 				yield return null;
 			}
-		}
+		}*/
 
-		private IEnumerator LoadAdd(params string[] scenes) {
+		private IEnumerator TaskLoadSceneAdditive(params string[] scenes) {
 			yield return null;
 
 			float time = 0;

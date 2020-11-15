@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using Singleton;
+using StateMachine.Callback;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 
 namespace SceneLoaderManagement {
-	public partial class SceneLoaderManager : MonoBehaviour {
-
-		public static SceneLoaderManager Instance { get; private set; }
-
+	public partial class SceneLoaderManager : SingletonBehavior<SceneLoaderManager>, IStateMachineCallback {
+			
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
@@ -24,13 +20,13 @@ namespace SceneLoaderManagement {
 		[Header("References")]
 		public GameObject canvas;
 
-		public GameObject prefabLoadingScreen;
+		//public GameObject prefabLoadingScreen;
 
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
-		private Action fadeFinished;
-		private GameObject loadingScreenRef;
+		private Action onFadeInFinish;
+		//private GameObject loadingScreenRef;
 
 		public bool IsOn { get; private set; }
 
@@ -40,17 +36,16 @@ namespace SceneLoaderManagement {
 			get { return (int) (ProgressClamp * 100); }
 		}
 
-		private UnityAction g;
+		//private UnityAction g;
 
-		private void Awake() {
-			if(Instance == null) Instance = this;
-			else Destroy(gameObject);
-			DontDestroyOnLoad(gameObject);
+		protected override void Awake() {
+			base.Awake();
+			//DontDestroyOnLoad(gameObject);
 
-			animator = canvas.GetComponent<Animator>();
+			animator = GetComponent<Animator>();
 			canvasGroup = canvas.GetComponent<CanvasGroup>();
 
-			loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
+			//loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
 		}
 
 		private void Start() {
@@ -63,7 +58,7 @@ namespace SceneLoaderManagement {
 
 		private void Update() {
 			//Debug
-			if(Input.GetKeyDown(KeyCode.H)) {
+			if(Input.GetKeyDown(KeyCode.Alpha2)) {
 				FadeOut();
 			}
 		}
@@ -75,37 +70,23 @@ namespace SceneLoaderManagement {
 			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
-			loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
-			animator.SetTrigger("fadeOut");
+			//loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
+			animator.SetBool("isShowing", false);
 		}
+		
+		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) { }
 
-		/// <summary>
-		/// Called externally by the animator when an animation has finished
-		/// </summary>
-		public void AnimationFinished() {
-			if(fadeFinished != null) {
-				fadeFinished();
+		public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) { }
 
-				//Clear the event
-				//fadeFinished = delegate { };
-				fadeFinished = null;
+		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
+			if(stateInfo.IsName("FadeIn")) {
+				onFadeInFinish?.Invoke();
+				onFadeInFinish = null;
+			} else if(stateInfo.IsName("FadeOut")) {
+				//print("Callback done");
 			}
-
+			
 		}
-
-		/// <summary>
-		/// Called externally by the loading canvas's animator when an animation has finished
-		/// </summary>
-		public void LoadingCanvasAnimationFinished() {
-			if(fadeFinished != null) {
-				fadeFinished();
-
-				//Clear the event
-				//fadeFinished = delegate { };
-				fadeFinished = null;
-			}
-
-		}
-
+		
 	}
 }
