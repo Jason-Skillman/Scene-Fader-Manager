@@ -6,24 +6,28 @@ using UnityEngine.Events;
 
 namespace SceneManagement {
 	public partial class SceneLoaderManager : SingletonBehavior<SceneLoaderManager>, IStateMachineCallback {
-		
+
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
 		[Header("Animation Speeds"), SerializeField]
 		private float minWaitTime = 0.0f;
 		[SerializeField]
-		private float fadeInSeconds = 0.15f;
+		private float fadeInMultiplier = 0.15f;
 		[SerializeField]
-		private float fadeOutSeconds = 0.15f;
+		private float fadeOutMultiplier = 0.15f;
 
 		[Header("References"), SerializeField]
-		private GameObject canvas;
+		private GameObject canvas = default;
 
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
 		private Action onFadeInFinish;
+		
+		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
+		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
+		private static readonly int IsShowing = Animator.StringToHash("isShowing");
 
 		public bool IsOn { get; private set; }
 
@@ -42,8 +46,8 @@ namespace SceneManagement {
 			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
-			animator.SetFloat("fadeInSeconds", fadeInSeconds);
-			animator.SetFloat("fadeOutSeconds", fadeOutSeconds);
+			animator.SetFloat(FadeInMultiplier, fadeInMultiplier);
+			animator.SetFloat(FadeOutMultiplier, fadeOutMultiplier);
 		}
 
 		private void Update() {
@@ -60,7 +64,7 @@ namespace SceneManagement {
 			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
-			animator.SetBool("isShowing", false);
+			animator.SetBool(IsShowing, false);
 		}
 		
 		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) { }
