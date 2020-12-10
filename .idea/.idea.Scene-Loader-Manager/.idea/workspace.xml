@@ -23,30 +23,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas Fade.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas Fade.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Canvas.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeIn.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeIn.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeOut.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/FadeOut.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Hide.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Animations/SceneLoader/Hide.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/SceneLoaderManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Prefabs/SceneLoaderManager.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene01.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene02.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene02.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene03.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene03.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene04.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene04.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene05.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scene05.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation/AnimationEvent.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Animation/AnimationEvent.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/SceneLoader.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/SceneLoader.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.SceneManagement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.SceneManagement.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,10 +44,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.SceneManagement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.jasonskillman.singleton@f7ebd5f292/Runtime/Scripts/SingletonBehavior.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -70,10 +58,14 @@
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.SceneManagement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" />
       </list>
     </option>
   </component>
   <component name="ProjectId" id="1gxr13DDVquEVXJAfyOGnY0uZnG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -121,6 +113,7 @@
       <workItem from="1599441672279" duration="1998000" />
       <workItem from="1605467464232" duration="2325000" />
       <workItem from="1605469970363" duration="652000" />
+      <workItem from="1607634628686" duration="875000" />
     </task>
     <servers />
   </component>

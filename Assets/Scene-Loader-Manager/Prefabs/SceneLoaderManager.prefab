@@ -251,9 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc3e5ad41e12174490b56e9e94b7fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minWaitTime: 3
-  fadeInSpeedMultiplier: 1
-  fadeOutSpeedMultiplier: 1
+  minWaitTime: 0
+  fadeInSeconds: 0.15
+  fadeOutSeconds: 0.15
   canvas: {fileID: 6786339176588096020}
-  prefabLoadingScreen: {fileID: 2045019118013952149, guid: 2d9582fcd24cc1044a29ed202742266a,
-    type: 3}

@@ -4,56 +4,46 @@ using StateMachine.Callback;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace SceneLoaderManagement {
+namespace SceneManagement {
 	public partial class SceneLoaderManager : SingletonBehavior<SceneLoaderManager>, IStateMachineCallback {
-			
+		
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
-		public float minWaitTime = 3.0f;
+		[Header("Animation Speeds"), SerializeField]
+		private float minWaitTime = 0.0f;
+		[SerializeField]
+		private float fadeInSeconds = 0.15f;
+		[SerializeField]
+		private float fadeOutSeconds = 0.15f;
 
-		[Header("Animation Speeds")]
-		public float fadeInSpeedMultiplier = 1.0f;
-
-		public float fadeOutSpeedMultiplier = 1.0f;
-
-		[Header("References")]
-		public GameObject canvas;
-
-		//public GameObject prefabLoadingScreen;
+		[Header("References"), SerializeField]
+		private GameObject canvas;
 
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
 		private Action onFadeInFinish;
-		//private GameObject loadingScreenRef;
 
 		public bool IsOn { get; private set; }
 
 		public float ProgressClamp { get; private set; }
 
-		public int Progress {
-			get { return (int) (ProgressClamp * 100); }
-		}
-
-		//private UnityAction g;
+		public int Progress => (int) (ProgressClamp * 100);
 
 		protected override void Awake() {
 			base.Awake();
-			//DontDestroyOnLoad(gameObject);
 
 			animator = GetComponent<Animator>();
 			canvasGroup = canvas.GetComponent<CanvasGroup>();
-
-			//loadingScreenRef = Instantiate(prefabLoadingScreen, transform);
 		}
 
 		private void Start() {
 			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
-			animator.SetFloat("fadeInSpeed", fadeInSpeedMultiplier);
-			animator.SetFloat("fadeOutSpeed", fadeOutSpeedMultiplier);
+			animator.SetFloat("fadeInSeconds", fadeInSeconds);
+			animator.SetFloat("fadeOutSeconds", fadeOutSeconds);
 		}
 
 		private void Update() {
@@ -70,7 +60,6 @@ namespace SceneLoaderManagement {
 			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
-			//loadingScreenRef.GetComponent<Animator>().SetTrigger("fadeOut");
 			animator.SetBool("isShowing", false);
 		}
 		
@@ -85,7 +74,6 @@ namespace SceneLoaderManagement {
 			} else if(stateInfo.IsName("FadeOut")) {
 				//print("Callback done");
 			}
-			
 		}
 		
 	}
