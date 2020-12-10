@@ -23,7 +23,7 @@ namespace SceneManagement {
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
-		private Action onFadeInFinish;
+		private Action onFinish;
 		
 		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
@@ -55,6 +55,10 @@ namespace SceneManagement {
 			if(Input.GetKeyDown(KeyCode.Alpha2)) {
 				FadeOut();
 			}
+
+			if(Input.GetKeyDown(KeyCode.Alpha3)) {
+				StopCoroutine(coroutine);
+			}
 		}
 
 		/// <summary>
@@ -73,8 +77,8 @@ namespace SceneManagement {
 
 		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
 			if(stateInfo.IsName("FadeIn")) {
-				onFadeInFinish?.Invoke();
-				onFadeInFinish = null;
+				onFinish?.Invoke();
+				onFinish = null;
 			} else if(stateInfo.IsName("FadeOut")) {
 				//print("Callback done");
 			}

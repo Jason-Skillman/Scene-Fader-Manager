@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 namespace SceneManagement {
 	public partial class SceneLoaderManager {
+
+		private Coroutine coroutine;
 		
 		/*public void LoadScene(string sceneName) {
 			//Block flow of control if the scene loader is already loading
@@ -23,8 +25,12 @@ namespace SceneManagement {
 			};
 		}*/
 
-		//Todo:
-		public void LoadSceneAdditive(params string[] scenes) {
+		/// <summary>
+		/// Loads in an array of scenes additively.
+		/// </summary>
+		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
+		/// <param name="scenes">The scene names.</param>
+		public void LoadSceneAdditive(bool duplicateScenes = false, params string[] scenes) {
 			if(IsOn) {
 				Debug.LogWarning("Scene manager is already loading.");
 				return;
@@ -36,10 +42,68 @@ namespace SceneManagement {
 			animator.SetBool("isShowing", true);
 
 			//Add callback when fade in has finished
-			onFadeInFinish = () => {
-				//Todo: cache ref
-				StartCoroutine(CoroutineLoadSceneAdditive(scenes));
+			onFinish = () => {
+				coroutine = StartCoroutine(CoroutineLoadSceneAdditive(duplicateScenes, scenes));
 			};
+		}
+		
+		private IEnumerator CoroutineLoadSceneAdditive(bool duplicateScenes = false, params string[] scenes) {
+			yield return null;
+
+			float time = 0;
+
+			List<AsyncOperation> listOperations = new List<AsyncOperation>();
+
+			//Step 1: Load all of operations
+			foreach(string sceneName in scenes) {
+				//Check if the scene is already loaded
+				if(!duplicateScenes) {
+					Scene scene = SceneManager.GetSceneByName(sceneName);
+					if(scene.isLoaded) {
+						//Skip loading scene if scene is already loaded
+						continue;
+					}
+				}
+				
+				//Start loading the scene
+				AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+				
+				//Prevent the scene from activating
+				asyncOperation.allowSceneActivation = false;
+				
+				listOperations.Add(asyncOperation);
+
+				//Wait until the current scene is loaded but not activated
+				while(asyncOperation.progress < 0.9f) {
+					time += Time.deltaTime;
+					yield return null;
+				}
+				//yield return new WaitForSeconds(1f);
+			}
+
+			//Step 2: Activate all of the operations
+			foreach(AsyncOperation operation in listOperations) {
+				operation.allowSceneActivation = true;
+
+				while(!operation.isDone) {
+					time += Time.deltaTime;
+					yield return null;
+				}
+			}
+
+			//Wait for the min time
+			while(true) {
+				if(time >= minWaitTime)
+					break;
+
+				time += Time.deltaTime;
+				yield return null;
+			}
+			
+			StopCoroutine(coroutine);
+			coroutine = null;
+			
+			FadeOut();
 		}
 
 		/*private IEnumerator LoadSceneTask(string sceneName, float delay = 0.0f) {
@@ -81,51 +145,7 @@ namespace SceneManagement {
 			}
 		}*/
 
-		private IEnumerator CoroutineLoadSceneAdditive(params string[] scenes) {
-			yield return null;
-
-			float time = 0;
-
-			List<AsyncOperation> listOperations = new List<AsyncOperation>();
-
-			//Step 1: Load all of operations
-			foreach(string sceneName in scenes) {
-				//Start loading the scene
-				AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-				
-				//Prevent the scene from activating
-				asyncOperation.allowSceneActivation = false;
-				
-				listOperations.Add(asyncOperation);
-
-				//Wait until the current scene is loaded but not activated
-				while(asyncOperation.progress < 0.9f) {
-					time += Time.deltaTime;
-					yield return null;
-				}
-			}
-
-			//Step 2: Activate all of the operations
-			foreach(AsyncOperation operation in listOperations) {
-				operation.allowSceneActivation = true;
-
-				while(!operation.isDone) {
-					time += Time.deltaTime;
-					yield return null;
-				}
-			}
-
-			//Wait for the min time
-			while(true) {
-				if(time >= minWaitTime)
-					break;
-
-				time += Time.deltaTime;
-				yield return null;
-			}
-
-			FadeOut();
-		}
+		
 		
 	}
 }

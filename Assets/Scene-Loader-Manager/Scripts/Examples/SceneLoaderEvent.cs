@@ -8,7 +8,8 @@ public class SceneLoaderEvent : MonoBehaviour {
 	public string[] scenes;
 
 	public void LoadAdd() {
-		SceneLoaderManager.Instance.LoadSceneAdditive(scenes);
+		//SceneLoaderManager.Instance.LoadSceneAdditive(scenes: scenes);
+		SceneLoaderManager.Instance.LoadSceneAdditive(duplicateScenes: false, scenes: scenes);
 	}
 	
 }
