@@ -19,12 +19,14 @@ public class SceneLoaderEvent : MonoBehaviour {
 			//SceneLoaderUtility.SetActiveScene("Scene02")
 		});*/
 		
-		StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes, () => {
+		/*StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes, () => {
 			print("done");
 			//SceneLoaderUtility.SetActiveScene("Scene02")
-		}));
-		
-		
+		}));*/
+
+		StartCoroutine(SceneLoaderUtility.CoroutineLoadSceneAsync("Scene02", () => print("done")));
+
+
 	}
 	
 }

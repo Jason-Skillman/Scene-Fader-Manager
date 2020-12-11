@@ -7,6 +7,37 @@ using UnityEngine.SceneManagement;
 namespace SceneManagement {
 	public static partial class SceneLoaderUtility {
 		
+		/// <summary>
+		/// Loads a single scene.
+		/// </summary>
+		/// <param name="scene">The scene name.</param>
+		/// <param name="onFinished">Optional callback action.</param>
+		public static IEnumerator CoroutineLoadSceneAsync(string scene, Action onFinished = null) {
+			//Block flow if the scene does not exist
+			if(!Application.CanStreamedLevelBeLoaded(scene)) {
+				if(LogLevel >= LogType.Less)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+				yield break;
+			}
+
+			AsyncOperation op = SceneManager.LoadSceneAsync(scene);
+			
+			//Wait until the current scene is loaded
+			while(op.progress < 0.9f) {
+				yield return null;
+			}
+			//Debug
+			//yield return new WaitForSeconds(1f);
+
+			onFinished?.Invoke();
+		}
+		
+		/// <summary>
+		/// Loads in an array of scenes additively.
+		/// </summary>
+		/// <param name="scenes">The array of scene names.</param>
+		/// <param name="onFinished">Optional callback action.</param>
+		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
 		public static IEnumerator CoroutineLoadScenesAdditive(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
