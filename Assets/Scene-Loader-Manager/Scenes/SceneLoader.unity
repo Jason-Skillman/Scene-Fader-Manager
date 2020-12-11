@@ -566,6 +566,7 @@ MonoBehaviour:
   - Scene03
   - Scene04
   - Scene05
+  - t
 --- !u!1 &808409643
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SceneManagement {
-	public static class SceneLoaderUtility {
+	public static partial class SceneLoaderUtility {
 
 		private static readonly string Tag = "[SceneManager] ";
 
@@ -40,6 +40,7 @@ namespace SceneManagement {
 		/// <param name="scenes">The array of scene names.</param>
 		/// <param name="onFinished">Optional callback action.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
+		[Obsolete]
 		public static void LoadScenesAdditiveAsync(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
@@ -60,7 +61,6 @@ namespace SceneManagement {
 					if(sceneObj.isLoaded) {
 						if(LogLevel >= LogType.All)
 							Debug.LogWarning(Tag + "The scene \"" + scene + "\" has already been loaded.");
-						onFinished?.Invoke();
 						continue;
 					}
 				}
@@ -72,46 +72,52 @@ namespace SceneManagement {
 			}
 
 			//Step 2: Activate all of the operations
-			int completed = 0, required = operations.Length;
+			//int completed = 0, required = operations.Length;
 			foreach(AsyncOperation op in operations) {
 				if(op == null) {
-					required--;
+					//required--;
 					continue;
 				}
 
 				op.allowSceneActivation = true;
+				
+				
+				//Todo: I hate this
+				/*while(true) {
+					Debug.Log(op.progress);
+					yield return null;
+				}*/
+				
+				/*yield return new WaitForSeconds(1);
 
 				op.completed += _ => {
-					completed++;
+					/*completed++;
 					if(completed == required) {
+						//Debug.Log("test");
+						onFinished?.Invoke();
+					}#1#
+					
+					if(scene.Equals(scenes[scenes.Length - 1])) {
 						onFinished?.Invoke();
 					}
-				};
+				};*/
 			}
 		}
 
-		/// <summary>
-		/// Loads in a base scene with optional additive scenes
-		/// </summary>
-		/// <param name="baseScene">The base scene to load</param>
-		/// <param name="onTaskFinished">Callback when the task has finished</param>
-		/// <param name="additiveScenes">The extra scenes to load</param>
-		public static void LoadBaseScene(string baseScene, Action onTaskFinished = null, params string[] additiveScenes) {
-			LoadSceneAsync(baseScene, () => { LoadScenesAdditiveAsync(additiveScenes, onTaskFinished); });
-		}
-
-		public static void UnloadSceneAsync(Action onTaskFinished = null, params string[] scenes) {
+		[Obsolete]
+		public static void UnloadSceneAsync(string[] scenes, Action onFinished = null) {
 			foreach(string scene in scenes) {
-				//Check if the scene does not exist
+				//Block flow if the scene does not exist
 				if(!Application.CanStreamedLevelBeLoaded(scene)) {
-					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+					if(LogLevel >= LogType.Less)
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 					continue;
 				}
 
-				var task = UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(scene);
-				task.completed += (e) => {
+				AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+				op.completed += e => {
 					if(scene.Equals(scenes[scenes.Length - 1])) {
-						onTaskFinished?.Invoke();
+						onFinished?.Invoke();
 					}
 				};
 			}
@@ -122,6 +128,7 @@ namespace SceneManagement {
 		/// </summary>
 		/// <param name="onTaskFinished">Callback when the task has finished</param>
 		/// <param name="scenesExcept">The list of scenes to not unload</param>
+		[Obsolete]
 		public static void UnloadAllScenesAsyncExcept(Action onTaskFinished = null, params string[] scenesExcept) {
 			int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
 
@@ -143,56 +150,25 @@ namespace SceneManagement {
 				if(flagSkip) continue;
 
 				//Unload the scene
-				UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(currentScene);
+				SceneManager.UnloadSceneAsync(currentScene);
 			}
 
 			//Callback
 			onTaskFinished?.Invoke();
 		}
+		
+		public static void SetActiveScene(string scene) {
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
+		}
+
+		/*public static void LoadBaseScene(string baseScene, Action onTaskFinished = null, params string[] additiveScenes) {
+			LoadSceneAsync(baseScene, () => { LoadScenesAdditiveAsync(additiveScenes, onTaskFinished); });
+		}*/
+		
 	}
 }
 
-/*private static IEnumerator CoroutineLoadScenesAdditive(bool duplicateScenes = false, params string[] scenes) {
-			//Todo:
-			yield return null;
-
-			List<AsyncOperation> listOperations = new List<AsyncOperation>();
-
-			//Step 1: List all of operations
-			foreach(string sceneName in scenes) {
-				//Check if the scene is already loaded
-				if(!duplicateScenes) {
-					Scene scene = SceneManager.GetSceneByName(sceneName);
-					if(scene.isLoaded) {
-						//Skip loading scene if scene is already loaded
-						continue;
-					}
-				}
-				
-				//Start loading the scene
-				AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-				
-				//Prevent the scene from activating
-				asyncOperation.allowSceneActivation = false;
-				
-				listOperations.Add(asyncOperation);
-
-				//Wait until the current scene is loaded but not activated
-				while(asyncOperation.progress < 0.9f) {
-					yield return null;
-				}
-				//yield return new WaitForSeconds(1f);
-			}
-
-			//Step 2: Activate all of the operations
-			foreach(AsyncOperation operation in listOperations) {
-				operation.allowSceneActivation = true;
-
-				while(!operation.isDone) {
-					yield return null;
-				}
-			}
-		}
+/*
 
 		public void UnloadScenes(params string[] scenes) {
 			Uni
