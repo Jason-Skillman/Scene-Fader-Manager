@@ -8,7 +8,7 @@ namespace SceneManagement {
 	public static class SceneLoaderUtility {
 
 		private static readonly string Tag = "[SceneManager] ";
-		
+
 		//Todo: Add log filter
 
 		public static void LoadSceneAsync(string scene, Action onTaskFinished = null) {
@@ -17,7 +17,7 @@ namespace SceneManagement {
 				Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 				return;
 			}
-			
+
 			//Block flow if the scene has already been loaded
 			Scene sceneObj = SceneManager.GetSceneByName(scene);
 			if(sceneObj.isLoaded) {
@@ -30,53 +30,35 @@ namespace SceneManagement {
 			op.completed += (e) => onTaskFinished?.Invoke();
 		}
 
-		public static void LoadScenesAdditiveAsync(string[] scenes, Action onTaskFinished = null) {
-			//List<AsyncOperation> operations = new List<AsyncOperation>();
+		public static void LoadScenesAdditiveAsync(string[] scenes, Action onTaskFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
 			//Step 1: Load all of operations
 			for(var i = 0; i < scenes.Length; i++) {
 				string scene = scenes[i];
-				
+
 				//Block flow if the scene does not exist
 				if(!Application.CanStreamedLevelBeLoaded(scene)) {
 					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 					continue;
 				}
 
-				//Todo: add duplicate
-				//Block flow if the scene has already been loaded
-				Scene sceneObj = SceneManager.GetSceneByName(scene);
-				if(sceneObj.isLoaded) {
-					Debug.LogWarning(Tag + "The scene \"" + scene + "\" has already been loaded.");
-					onTaskFinished?.Invoke();
-					continue;
+				if(!duplicateScenes) {
+					//Block flow if the scene has already been loaded
+					Scene sceneObj = SceneManager.GetSceneByName(scene);
+					if(sceneObj.isLoaded) {
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" has already been loaded.");
+						onTaskFinished?.Invoke();
+						continue;
+					}
 				}
 
 				//Load the scene and deactivate
 				AsyncOperation op = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 				op.allowSceneActivation = false;
-				//operations.Add(op);
 				operations[i] = op;
-
-				/*while(op.progress < 0.9f) {
-					yield return null;
-				}
-				yield return new WaitForSeconds(1f);*/
 			}
 
-			//Step 2: Activate all of the operations
-			/*foreach(AsyncOperation op in operations) {
-				if(op == null) continue;
-				
-				op.allowSceneActivation = true;
-				
-				while(!op.isDone) {
-					yield return null;
-				}
-				yield return new WaitForSeconds(1f);
-			}*/
-			
 			//Step 2: Activate all of the operations
 			int completed = 0, required = operations.Length;
 			foreach(AsyncOperation op in operations) {
@@ -84,9 +66,9 @@ namespace SceneManagement {
 					required--;
 					continue;
 				}
-				
+
 				op.allowSceneActivation = true;
-				
+
 				op.completed += _ => {
 					completed++;
 					if(completed == required) {
@@ -154,7 +136,6 @@ namespace SceneManagement {
 
 			//Callback
 			onTaskFinished?.Invoke();
-			
 		}
 	}
 }
