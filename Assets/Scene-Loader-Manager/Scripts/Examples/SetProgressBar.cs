@@ -9,7 +9,7 @@ public class SetProgressBar : MonoBehaviour {
 	public Slider slider;
 	
 	void Update() {
-		slider.value = SceneLoaderManager.Instance.ProgressClamp;
+		slider.value = SceneFaderManager.Instance.ProgressClamp;
 	}
 	
 }

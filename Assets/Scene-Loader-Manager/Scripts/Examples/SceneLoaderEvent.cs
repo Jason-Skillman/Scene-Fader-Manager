@@ -32,5 +32,12 @@ public class SceneLoaderEvent : MonoBehaviour {
 	public void Unload() {
 		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScene(scenes, () => print("done")));
 	}
+
+	public void StartFade() {
+		//Coroutine co1 = StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
+		IEnumerator co1 = SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes);
+
+		SceneFaderManager.Instance.StartOperation(0, co1);
+	}
 	
 }

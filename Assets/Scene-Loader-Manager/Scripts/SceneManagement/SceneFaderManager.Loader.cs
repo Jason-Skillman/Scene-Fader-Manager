@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace SceneManagement {
-	public partial class SceneLoaderManager {
+	public partial class SceneFaderManager {
 
-		private Coroutine coroutine;
+		/*private Coroutine coroutine;
 		
 		#region LoadSceneAdditive
 
@@ -99,7 +99,7 @@ namespace SceneManagement {
 			
 		}
 
-		#endregion
+		#endregion*/
 		
 		/*public void LoadScene(string sceneName) {
 			//Block flow of control if the scene loader is already loading

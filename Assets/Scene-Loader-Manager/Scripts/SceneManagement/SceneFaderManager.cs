@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using Singleton;
 using StateMachine.Callback;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace SceneManagement {
-	public partial class SceneLoaderManager : SingletonBehavior<SceneLoaderManager>, IStateMachineCallback {
+	public partial class SceneFaderManager : SingletonBehavior<SceneFaderManager>, IStateMachineCallback {
 
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
@@ -23,7 +24,8 @@ namespace SceneManagement {
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
-		private Action onFinish;
+		//private Action onFadeInFinish;
+		private Func<IEnumerator[]> onFadeInFinish;
 		
 		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
@@ -57,8 +59,61 @@ namespace SceneManagement {
 			}
 
 			if(Input.GetKeyDown(KeyCode.Alpha3)) {
-				StopCoroutine(coroutine);
+				//StopCoroutine(coroutine);
 			}
+		}
+		
+		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) { }
+
+		public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) { }
+
+		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
+			if(stateInfo.IsName("FadeIn")) {
+				//Perform operations
+				
+				//onFadeInFinish?.Invoke();
+				//onFadeInFinish = null;
+
+				if(onFadeInFinish != null) {
+					//Todo: cache
+					StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
+						FadeOut();
+					}));
+				} else {
+					FadeOut();
+				}
+				
+			} else if(stateInfo.IsName("FadeOut")) {
+				//Done fading out
+			}
+		}
+
+		/// <summary>
+		/// Main method!
+		/// </summary>
+		public void StartOperation(int seconds, params IEnumerator[] tasks) {
+			if(IsOn) {
+				Debug.LogWarning("Scene manager is already loading.");
+				return;
+			}
+
+			IsOn = true;
+			canvasGroup.blocksRaycasts = true;
+
+			animator.SetBool("isShowing", true);
+
+			//Add callback when fade in has finished
+			onFadeInFinish = () => {
+				return tasks;
+			};
+		}
+
+		private IEnumerator CoroutinePerformTasks(IEnumerator[] tasks, Action onFinish = null) {
+			foreach(IEnumerator task in tasks) {
+				yield return task;
+			}
+			
+			onFinish?.Invoke();
 		}
 
 		/// <summary>
@@ -71,18 +126,7 @@ namespace SceneManagement {
 			animator.SetBool(IsShowing, false);
 		}
 		
-		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) { }
-
-		public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) { }
-
-		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
-			if(stateInfo.IsName("FadeIn")) {
-				onFinish?.Invoke();
-				onFinish = null;
-			} else if(stateInfo.IsName("FadeOut")) {
-				//print("Callback done");
-			}
-		}
+		
 		
 	}
 }
