@@ -90,6 +90,27 @@ namespace SceneManagement {
 			
 			onFinished?.Invoke();
 		}
+		
+		public static IEnumerator CoroutineUnloadScene(string[] scenes, Action onFinished = null) {
+			foreach(string scene in scenes) {
+				//Block flow if the scene does not exist
+				if(!Application.CanStreamedLevelBeLoaded(scene)) {
+					if(LogLevel >= LogType.Less)
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+					continue;
+				}
+
+				AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+
+				while(!op.isDone) {
+					yield return null;
+				}
+				//Debug
+				//yield return new WaitForSeconds(1f);
+			}
+			
+			onFinished?.Invoke();
+		}
 	
 	}
 }
