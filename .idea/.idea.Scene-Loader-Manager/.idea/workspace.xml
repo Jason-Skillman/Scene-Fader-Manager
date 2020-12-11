@@ -20,14 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d48c4f28-a1ab-42e1-984b-7c9093b3abfe" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene02.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene02.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene03.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene03.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene04.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene04.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene05.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene05.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderUtility.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +110,7 @@
       <workItem from="1605467464232" duration="2325000" />
       <workItem from="1605469970363" duration="652000" />
       <workItem from="1607634628686" duration="9513000" />
-      <workItem from="1607694521069" duration="1902000" />
+      <workItem from="1607694521069" duration="3487000" />
     </task>
     <servers />
   </component>

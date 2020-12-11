@@ -13,6 +13,7 @@ public class SceneLoaderEvent : MonoBehaviour {
 		
 		//SceneLoaderUtility.LoadSceneAsync("test");
 		//StartCoroutine(SceneLoaderUtility.LoadScenesAdditiveAsync(scenes));
+		SceneLoaderUtility.LogLevel = SceneLoaderUtility.LogType.Less;
 		SceneLoaderUtility.LoadScenesAdditiveAsync(scenes);
 	}
 	
