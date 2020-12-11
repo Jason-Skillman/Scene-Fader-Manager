@@ -20,10 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d48c4f28-a1ab-42e1-984b-7c9093b3abfe" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Scene-Loader-Manager/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene02.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene02.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene03.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene03.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene04.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene04.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene05.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scenes/Scenes/Scene05.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,9 +39,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../tevolve-game/Assets/Scripts/SceneManagment/SceneLoader.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SetProgressBar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../tevolve-game/Assets/Scripts/SceneManagment/SceneManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.jasonskillman.singleton@f7ebd5f292/Runtime/Scripts/SingletonBehavior.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -49,8 +55,10 @@
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneLoaderManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.SceneManagement.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" />
         <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderManager.Loader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/Examples/SceneLoaderEvent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scene-Loader-Manager/Scripts/SceneManagement/SceneLoaderUtility.cs" />
       </list>
     </option>
   </component>
@@ -68,6 +76,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys_rider" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
@@ -105,7 +114,8 @@
       <workItem from="1599441672279" duration="1998000" />
       <workItem from="1605467464232" duration="2325000" />
       <workItem from="1605469970363" duration="652000" />
-      <workItem from="1607634628686" duration="3855000" />
+      <workItem from="1607634628686" duration="9513000" />
+      <workItem from="1607694521069" duration="1902000" />
     </task>
     <servers />
   </component>
@@ -134,6 +144,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="711" y="221" key="RiderGenerateDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1605469410895" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1607657619822">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1607657619822" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1607638001344">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

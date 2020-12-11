@@ -8,22 +8,7 @@ namespace SceneManagement {
 
 		private Coroutine coroutine;
 		
-		/*public void LoadScene(string sceneName) {
-			//Block flow of control if the scene loader is already loading
-			if(IsOn) {
-				Debug.Log("Scene is already loading");
-				return;
-			}
-
-			IsOn = true;
-			canvasGroup.blocksRaycasts = true;
-
-			animator.SetTrigger("fadeIn");
-
-			fadeFinished = delegate {
-				StartCoroutine(LoadSceneTask(sceneName, 1.0f));
-			};
-		}*/
+		#region LoadSceneAdditive
 
 		/// <summary>
 		/// Loads in an array of scenes additively.
@@ -106,6 +91,33 @@ namespace SceneManagement {
 			FadeOut();
 		}
 
+		#endregion
+
+		#region UnloadScene
+
+		public void UnloadScene(params string[] scenes) {
+			
+		}
+
+		#endregion
+		
+		/*public void LoadScene(string sceneName) {
+			//Block flow of control if the scene loader is already loading
+			if(IsOn) {
+				Debug.Log("Scene is already loading");
+				return;
+			}
+
+			IsOn = true;
+			canvasGroup.blocksRaycasts = true;
+
+			animator.SetTrigger("fadeIn");
+
+			fadeFinished = delegate {
+				StartCoroutine(LoadSceneTask(sceneName, 1.0f));
+			};
+		}*/
+
 		/*private IEnumerator LoadSceneTask(string sceneName, float delay = 0.0f) {
 			yield return new WaitForSeconds(delay);
 			
@@ -144,8 +156,6 @@ namespace SceneManagement {
 				yield return null;
 			}
 		}*/
-
-		
 		
 	}
 }

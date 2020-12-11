@@ -15,6 +15,7 @@
             <e p="SceneManagement" t="Include">
               <e p="SceneLoaderManager.cs" t="Include" />
               <e p="SceneLoaderManager.Loader.cs" t="Include" />
+              <e p="SceneLoaderUtility.cs" t="Include" />
             </e>
           </e>
         </e>
