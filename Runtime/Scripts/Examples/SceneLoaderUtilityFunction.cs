@@ -18,6 +18,10 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 		SceneLoaderUtility.LoadScenesAdditive(scenes, () => print("Done"));
 	}
 
+	public void LoadActiveScene() {
+		SceneLoaderUtility.LoadActiveScene(scenes[0], scenes, () => print("Done"), true);
+	}
+
 	public void UnloadScene() {
 		SceneLoaderUtility.UnloadScene(scenes[0], () => print("Done"));
 	}
@@ -37,7 +41,7 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 	public void CoroutineLoadScenesAdditive() {
 		StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
 	}
-
+	
 	public void CoroutineUnloadScene() {
 		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScene(scenes[0]));
 	}
@@ -48,6 +52,7 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 
 	#endregion
 
+	//Todo: move
 	/*public void StartFade() {
 		//Coroutine co1 = StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
 		IEnumerator co1 = SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes);

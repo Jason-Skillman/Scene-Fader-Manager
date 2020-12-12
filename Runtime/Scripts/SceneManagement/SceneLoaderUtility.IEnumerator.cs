@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 namespace SceneFader.SceneManagement {
 	public static partial class SceneLoaderUtility {
-		
+
+		#region LoadScene
+
 		/// <summary>
 		/// Loads a single scene.
 		/// </summary>
@@ -93,6 +95,10 @@ namespace SceneFader.SceneManagement {
 			onFinished?.Invoke();
 		}
 
+		#endregion
+
+		#region UnloadScene
+
 		/// <summary>
 		/// Unloads a single scene.
 		/// </summary>
@@ -160,6 +166,8 @@ namespace SceneFader.SceneManagement {
 			
 			onFinished?.Invoke();
 		}
-	
+
+		#endregion
+
 	}
 }

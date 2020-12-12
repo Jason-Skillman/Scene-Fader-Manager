@@ -17,6 +17,8 @@ namespace SceneFader.SceneManagement {
 			None = 2,
 		}
 
+		#region LoadScene
+
 		/// <summary>
 		/// Loads a single scene.
 		/// </summary>
@@ -33,7 +35,7 @@ namespace SceneFader.SceneManagement {
 			AsyncOperation op = SceneManager.LoadSceneAsync(scene);
 			op.completed += _ => onFinished?.Invoke();
 		}
-		
+
 		/// <summary>
 		/// Loads in an array of scenes additively.
 		/// </summary>
@@ -73,20 +75,35 @@ namespace SceneFader.SceneManagement {
 			//Step 2: Activate all of the operations
 			foreach(AsyncOperation op in operations) {
 				if(op == null) continue;
-				
+
 				op.allowSceneActivation = true;
 			}
 
 			//Step 3: Apply callback to the last scene
-			for(int i = operations.Length-1; i >= 0; i--) {
+			for(int i = operations.Length - 1; i >= 0; i--) {
 				AsyncOperation op = operations[i];
-				
+
 				if(op == null) continue;
 
 				op.completed += _ => onFinished?.Invoke();
 				break;
 			}
 		}
+
+		/// <summary>
+		/// Loads in the active base scene with an array of additive scenes.
+		/// </summary>
+		/// <param name="activeScene">The base scene to load as the active scene.</param>
+		/// <param name="scenes">The additional scenes to load additively after the base scene.</param>
+		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
+		public static void LoadActiveScene(string activeScene, string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
+			LoadScene(activeScene, () => LoadScenesAdditive(scenes, onFinished, duplicateScenes));
+		}
+
+		#endregion
+
+		#region UnloadScene
 
 		/// <summary>
 		/// Unloads a single scene.
@@ -152,10 +169,12 @@ namespace SceneFader.SceneManagement {
 			}
 		}
 
+		#endregion
+
 		/// <summary>
-		/// Unloads all scenes except for a select few
+		/// Unloads all scenes except for a select few.
 		/// </summary>
-		/// <param name="onTaskFinished">Callback when the task has finished</param>
+		/// <param name="onFinished"></param>
 		/// <param name="scenesExcept">The list of scenes to not unload</param>
 		/*public static void UnloadAllScenesAsyncExcept(Action onTaskFinished = null, params string[] scenesExcept) {
 			int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
@@ -184,16 +203,10 @@ namespace SceneFader.SceneManagement {
 			//Callback
 			onTaskFinished?.Invoke();
 		}*/
-		
-		
 
-		/*public static void LoadBaseScene(string baseScene, Action onTaskFinished = null, params string[] additiveScenes) {
-			LoadSceneAsync(baseScene, () => { LoadScenesAdditiveAsync(additiveScenes, onTaskFinished); });
-		}*/
-		
 		public static void SetActiveScene(string scene) {
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
 		}
-		
+
 	}
 }
