@@ -8,21 +8,46 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 
 	public string[] scenes;
 
+	#region Async
+	
 	public void LoadScene() {
-		StartCoroutine(SceneLoaderUtility.CoroutineLoadScene(scenes[0]));
+		SceneLoaderUtility.LoadSceneAsync(scenes[0], () => print("Done"));
 	}
 
 	public void LoadScenesAdditive() {
-		StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
+		SceneLoaderUtility.LoadScenesAdditiveAsync(scenes, () => print("Done"));
+		//StartCoroutine(SceneLoaderUtility.LoadScenesAdditiveAsync(scenes, () => print("Done")));
 	}
 
 	public void UnloadScene() {
-		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScene(scenes[0]));
+		
 	}
 
 	public void UnloadScenes() {
+		
+	}
+
+	#endregion
+
+	#region IEnumerator
+
+	public void CoroutineLoadScene() {
+		StartCoroutine(SceneLoaderUtility.CoroutineLoadScene(scenes[0]));
+	}
+
+	public void CoroutineLoadScenesAdditive() {
+		StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
+	}
+
+	public void CoroutineUnloadScene() {
+		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScene(scenes[0]));
+	}
+
+	public void CoroutineUnloadScenes() {
 		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScenes(scenes));
 	}
+
+	#endregion
 
 	/*public void StartFade() {
 		//Coroutine co1 = StartCoroutine(SceneLoaderUtility.CoroutineLoadScenesAdditive(scenes));
@@ -30,5 +55,5 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 
 		SceneFaderManager.Instance.StartOperation(0, co1);
 	}*/
-	
+
 }

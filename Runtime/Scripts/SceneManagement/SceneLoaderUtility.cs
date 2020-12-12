@@ -21,7 +21,7 @@ namespace SceneFader.SceneManagement {
 		/// Loads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene name.</param>
-		/// <param name="onFinished">Optional callback action.</param>
+		/// <param name="onFinished">Optional callback.</param>
 		public static void LoadSceneAsync(string scene, Action onFinished = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
@@ -31,16 +31,15 @@ namespace SceneFader.SceneManagement {
 			}
 
 			AsyncOperation op = SceneManager.LoadSceneAsync(scene);
-			op.completed += (e) => onFinished?.Invoke();
+			op.completed += _ => onFinished?.Invoke();
 		}
-
+		
 		/// <summary>
 		/// Loads in an array of scenes additively.
 		/// </summary>
 		/// <param name="scenes">The array of scene names.</param>
-		/// <param name="onFinished">Optional callback action.</param>
+		/// <param name="onFinished">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
-		[Obsolete]
 		public static void LoadScenesAdditiveAsync(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
@@ -72,35 +71,20 @@ namespace SceneFader.SceneManagement {
 			}
 
 			//Step 2: Activate all of the operations
-			//int completed = 0, required = operations.Length;
 			foreach(AsyncOperation op in operations) {
-				if(op == null) {
-					//required--;
-					continue;
-				}
-
+				if(op == null) continue;
+				
 				op.allowSceneActivation = true;
-				
-				
-				//Todo: I hate this
-				/*while(true) {
-					Debug.Log(op.progress);
-					yield return null;
-				}*/
-				
-				/*yield return new WaitForSeconds(1);
+			}
 
-				op.completed += _ => {
-					/*completed++;
-					if(completed == required) {
-						//Debug.Log("test");
-						onFinished?.Invoke();
-					}#1#
-					
-					if(scene.Equals(scenes[scenes.Length - 1])) {
-						onFinished?.Invoke();
-					}
-				};*/
+			//Step 3: Apply callback to the last scene
+			for(int i = operations.Length-1; i >= 0; i--) {
+				AsyncOperation op = operations[i];
+				
+				if(op == null) continue;
+
+				op.completed += _ => onFinished?.Invoke();
+				break;
 			}
 		}
 
