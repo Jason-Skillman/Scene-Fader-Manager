@@ -11,8 +11,9 @@ namespace SceneFader.SceneManagement {
 		/// Loads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene name.</param>
-		/// <param name="onFinished">Optional callback action.</param>
-		public static IEnumerator CoroutineLoadSceneAsync(string scene, Action onFinished = null) {
+		/// <param name="onFinished">Optional callback.</param>
+		/// <returns></returns>
+		public static IEnumerator CoroutineLoadScene(string scene, Action onFinished = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -36,8 +37,9 @@ namespace SceneFader.SceneManagement {
 		/// Loads in an array of scenes additively.
 		/// </summary>
 		/// <param name="scenes">The array of scene names.</param>
-		/// <param name="onFinished">Optional callback action.</param>
+		/// <param name="onFinished">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
+		/// <returns></returns>
 		public static IEnumerator CoroutineLoadScenesAdditive(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
@@ -90,13 +92,59 @@ namespace SceneFader.SceneManagement {
 			
 			onFinished?.Invoke();
 		}
+
+		/// <summary>
+		/// Unloads a scene.
+		/// </summary>
+		/// <param name="scene">The scene to unload.</param>
+		/// <param name="onFinished">Optional callback.</param>
+		/// <returns></returns>
+		public static IEnumerator CoroutineUnloadScene(string scene, Action onFinished = null) {
+			//Block flow if the scene does not exist
+			if(!Application.CanStreamedLevelBeLoaded(scene)) {
+				if(LogLevel >= LogType.Less)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+				yield break;
+			}
+			//Block flow if the scene is not loaded
+			Scene sceneObj = SceneManager.GetSceneByName(scene);
+			if(!sceneObj.isLoaded) {
+				if(LogLevel >= LogType.All)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
+				yield break;
+			}
+			
+			AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+			
+			//Wait until the current scene is loaded
+			while(!op.isDone) {
+				yield return null;
+			}
+			//Debug
+			//yield return new WaitForSeconds(1f);
+
+			onFinished?.Invoke();
+		}
 		
-		public static IEnumerator CoroutineUnloadScene(string[] scenes, Action onFinished = null) {
+		/// <summary>
+		/// Unloads an array of scenes.
+		/// </summary>
+		/// <param name="scenes">The scenes to unload.</param>
+		/// <param name="onFinished">Optional callback.</param>
+		/// <returns></returns>
+		public static IEnumerator CoroutineUnloadScenes(string[] scenes, Action onFinished = null) {
 			foreach(string scene in scenes) {
 				//Block flow if the scene does not exist
 				if(!Application.CanStreamedLevelBeLoaded(scene)) {
 					if(LogLevel >= LogType.Less)
 						Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+					continue;
+				}
+				//Block flow if the scene is not loaded
+				Scene sceneObj = SceneManager.GetSceneByName(scene);
+				if(!sceneObj.isLoaded) {
+					if(LogLevel >= LogType.All)
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
 					continue;
 				}
 
