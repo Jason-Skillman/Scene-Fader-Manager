@@ -9,7 +9,7 @@ namespace SceneFader.SceneManagement {
 
 		private static readonly string Tag = "[SceneManager] ";
 
-		public static LogType LogLevel { get; set; } = LogType.All;
+		public static LogType LogLevel { get; set; } = LogType.Less;
 
 		public enum LogType {
 			Less = 0,
@@ -79,7 +79,7 @@ namespace SceneFader.SceneManagement {
 				op.allowSceneActivation = true;
 			}
 
-			//Step 3: Apply callback to the last scene
+			//Step 3: Attach the callback to the last scene
 			for(int i = operations.Length - 1; i >= 0; i--) {
 				AsyncOperation op = operations[i];
 
@@ -159,6 +159,45 @@ namespace SceneFader.SceneManagement {
 				operations[i] = op;
 			}
 
+			//Attach the callback to last scene
+			for(int i = operations.Length-1; i >= 0; i--) {
+				AsyncOperation op = operations[i];
+				
+				if(op == null) continue;
+
+				op.completed += _ => onFinished?.Invoke();
+				break;
+			}
+		}
+		
+		/// <summary>
+		/// Unloads all scenes except for the provided array.
+		/// </summary>
+		/// <param name="scenesExcept">The list of scenes to not unload</param>
+		/// <param name="onFinished">Optional callback.</param>
+		public static void UnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
+			int sceneCount = SceneManager.sceneCount;
+			AsyncOperation[] operations = new AsyncOperation[sceneCount];
+			
+			//Loop through all of the existing scenes
+			for(int i = 0; i < sceneCount; i++) {
+				Scene currentScene = SceneManager.GetSceneAt(i);
+
+				//Skip unloading if the scene is excluded
+				bool flagSkip = false;
+				foreach(string sceneExcept in scenesExcept) {
+					if(currentScene.name.Equals(sceneExcept)) {
+						flagSkip = true;
+						break;
+					}
+				}
+				if(flagSkip) continue;
+
+				AsyncOperation op = SceneManager.UnloadSceneAsync(currentScene);
+				operations[i] = op;
+			}
+			
+			//Attach the callback to last scene
 			for(int i = operations.Length-1; i >= 0; i--) {
 				AsyncOperation op = operations[i];
 				
@@ -170,39 +209,6 @@ namespace SceneFader.SceneManagement {
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Unloads all scenes except for a select few.
-		/// </summary>
-		/// <param name="onFinished"></param>
-		/// <param name="scenesExcept">The list of scenes to not unload</param>
-		/*public static void UnloadAllScenesAsyncExcept(Action onTaskFinished = null, params string[] scenesExcept) {
-			int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
-
-			//Loop through all of the existing scenes
-			for(int i = 0; i < sceneCount; i++) {
-				//Fetch the current scene
-				Scene currentScene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
-
-				//Loop through the list of excepted scenes
-				bool flagSkip = false;
-				foreach(string sceneExcept in scenesExcept) {
-					//Check if the current scene is excluded from the unload
-					if(currentScene.name.Equals(sceneExcept)) {
-						flagSkip = true;
-						break;
-					}
-				}
-
-				if(flagSkip) continue;
-
-				//Unload the scene
-				SceneManager.UnloadSceneAsync(currentScene);
-			}
-
-			//Callback
-			onTaskFinished?.Invoke();
-		}*/
 
 		public static void SetActiveScene(string scene) {
 			SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));

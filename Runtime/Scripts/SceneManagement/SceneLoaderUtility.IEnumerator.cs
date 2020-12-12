@@ -167,6 +167,47 @@ namespace SceneFader.SceneManagement {
 			onFinished?.Invoke();
 		}
 
+		/// <summary>
+		/// Unloads all scenes except for the provided array.
+		/// </summary>
+		/// <param name="scenesExcept">The list of scenes to not unload</param>
+		/// <param name="onFinished">Optional callback.</param>
+		/// <returns></returns>
+		public static IEnumerator CoroutineUnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
+			string[] scenesToUnload = new string[SceneManager.sceneCount];
+
+			//Loop through all of the existing scenes
+			for(int i = 0; i < SceneManager.sceneCount; i++) {
+				Scene currentScene = SceneManager.GetSceneAt(i);
+				
+				//Skip unloading if the scene is excluded
+				bool flagSkip = false;
+				foreach(string sceneExcept in scenesExcept) {
+					if(currentScene.name.Equals(sceneExcept)) {
+						flagSkip = true;
+						break;
+					}
+				}
+				if(flagSkip) continue;
+
+				scenesToUnload[i] = currentScene.name;
+			}
+
+			foreach(string scene in scenesToUnload) {
+				if(scene == null) continue;
+				
+				AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+				
+				while(!op.isDone) {
+					yield return null;
+				}
+				//Debug
+				//yield return new WaitForSeconds(1f);
+			}
+			
+			onFinished?.Invoke();
+		}
+		
 		#endregion
 
 	}

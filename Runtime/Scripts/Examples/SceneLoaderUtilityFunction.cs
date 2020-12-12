@@ -29,6 +29,10 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 	public void UnloadScenes() {
 		SceneLoaderUtility.UnloadScenes(scenes, () => print("Done"));
 	}
+	
+	public void UnloadAllScenesExceptFor() {
+		SceneLoaderUtility.UnloadAllScenesExceptFor(scenes, () => print("Done"));
+	}
 
 	#endregion
 
@@ -48,6 +52,10 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 
 	public void CoroutineUnloadScenes() {
 		StartCoroutine(SceneLoaderUtility.CoroutineUnloadScenes(scenes));
+	}
+	
+	public void CoroutineUnloadAllScenesExceptFor() {
+		StartCoroutine(SceneLoaderUtility.CoroutineUnloadAllScenesExceptFor(scenes, () => print("Done")));
 	}
 
 	#endregion
