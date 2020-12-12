@@ -11,20 +11,19 @@ public class SceneLoaderUtilityFunction : MonoBehaviour {
 	#region Async
 	
 	public void LoadScene() {
-		SceneLoaderUtility.LoadSceneAsync(scenes[0], () => print("Done"));
+		SceneLoaderUtility.LoadScene(scenes[0], () => print("Done"));
 	}
 
 	public void LoadScenesAdditive() {
-		SceneLoaderUtility.LoadScenesAdditiveAsync(scenes, () => print("Done"));
-		//StartCoroutine(SceneLoaderUtility.LoadScenesAdditiveAsync(scenes, () => print("Done")));
+		SceneLoaderUtility.LoadScenesAdditive(scenes, () => print("Done"));
 	}
 
 	public void UnloadScene() {
-		
+		SceneLoaderUtility.UnloadScene(scenes[0], () => print("Done"));
 	}
 
 	public void UnloadScenes() {
-		
+		SceneLoaderUtility.UnloadScenes(scenes, () => print("Done"));
 	}
 
 	#endregion

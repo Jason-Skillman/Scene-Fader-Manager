@@ -94,7 +94,7 @@ namespace SceneFader.SceneManagement {
 		}
 
 		/// <summary>
-		/// Unloads a scene.
+		/// Unloads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene to unload.</param>
 		/// <param name="onFinished">Optional callback.</param>
@@ -140,6 +140,7 @@ namespace SceneFader.SceneManagement {
 						Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 					continue;
 				}
+				
 				//Block flow if the scene is not loaded
 				Scene sceneObj = SceneManager.GetSceneByName(scene);
 				if(!sceneObj.isLoaded) {

@@ -20,9 +20,9 @@ namespace SceneFader.SceneManagement {
 		/// <summary>
 		/// Loads a single scene.
 		/// </summary>
-		/// <param name="scene">The scene name.</param>
+		/// <param name="scene">The scene to unload.</param>
 		/// <param name="onFinished">Optional callback.</param>
-		public static void LoadSceneAsync(string scene, Action onFinished = null) {
+		public static void LoadScene(string scene, Action onFinished = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -40,7 +40,7 @@ namespace SceneFader.SceneManagement {
 		/// <param name="scenes">The array of scene names.</param>
 		/// <param name="onFinished">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
-		public static void LoadScenesAdditiveAsync(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
+		public static void LoadScenesAdditive(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
 			//Step 1: Load all of operations
@@ -88,9 +88,41 @@ namespace SceneFader.SceneManagement {
 			}
 		}
 
-		[Obsolete]
-		public static void UnloadSceneAsync(string[] scenes, Action onFinished = null) {
-			foreach(string scene in scenes) {
+		/// <summary>
+		/// Unloads a single scene.
+		/// </summary>
+		/// <param name="scene">The scene to unload.</param>
+		/// <param name="onFinished">Optional callback.</param>
+		public static void UnloadScene(string scene, Action onFinished = null) {
+			//Block flow if the scene does not exist
+			if(!Application.CanStreamedLevelBeLoaded(scene)) {
+				if(LogLevel >= LogType.Less)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
+				return;
+			}
+			//Block flow if the scene is not loaded
+			Scene sceneObj = SceneManager.GetSceneByName(scene);
+			if(!sceneObj.isLoaded) {
+				if(LogLevel >= LogType.All)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
+				return;
+			}
+			
+			AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
+			op.completed += _ => onFinished?.Invoke();
+		}
+		
+		/// <summary>
+		/// Unloads an array of scenes.
+		/// </summary>
+		/// <param name="scenes">The scenes to unload.</param>
+		/// <param name="onFinished">Optional callback.</param>
+		public static void UnloadScenes(string[] scenes, Action onFinished = null) {
+			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
+
+			for(var i = 0; i < scenes.Length; i++) {
+				string scene = scenes[i];
+				
 				//Block flow if the scene does not exist
 				if(!Application.CanStreamedLevelBeLoaded(scene)) {
 					if(LogLevel >= LogType.Less)
@@ -98,12 +130,25 @@ namespace SceneFader.SceneManagement {
 					continue;
 				}
 
+				//Block flow if the scene is not loaded
+				Scene sceneObj = SceneManager.GetSceneByName(scene);
+				if(!sceneObj.isLoaded) {
+					if(LogLevel >= LogType.All)
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
+					continue;
+				}
+
 				AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
-				op.completed += e => {
-					if(scene.Equals(scenes[scenes.Length - 1])) {
-						onFinished?.Invoke();
-					}
-				};
+				operations[i] = op;
+			}
+
+			for(int i = operations.Length-1; i >= 0; i--) {
+				AsyncOperation op = operations[i];
+				
+				if(op == null) continue;
+
+				op.completed += _ => onFinished?.Invoke();
+				break;
 			}
 		}
 
@@ -112,8 +157,7 @@ namespace SceneFader.SceneManagement {
 		/// </summary>
 		/// <param name="onTaskFinished">Callback when the task has finished</param>
 		/// <param name="scenesExcept">The list of scenes to not unload</param>
-		[Obsolete]
-		public static void UnloadAllScenesAsyncExcept(Action onTaskFinished = null, params string[] scenesExcept) {
+		/*public static void UnloadAllScenesAsyncExcept(Action onTaskFinished = null, params string[] scenesExcept) {
 			int sceneCount = UnityEngine.SceneManagement.SceneManager.sceneCount;
 
 			//Loop through all of the existing scenes
@@ -139,15 +183,17 @@ namespace SceneFader.SceneManagement {
 
 			//Callback
 			onTaskFinished?.Invoke();
-		}
+		}*/
 		
-		public static void SetActiveScene(string scene) {
-			SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
-		}
+		
 
 		/*public static void LoadBaseScene(string baseScene, Action onTaskFinished = null, params string[] additiveScenes) {
 			LoadSceneAsync(baseScene, () => { LoadScenesAdditiveAsync(additiveScenes, onTaskFinished); });
 		}*/
+		
+		public static void SetActiveScene(string scene) {
+			SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
+		}
 		
 	}
 }
