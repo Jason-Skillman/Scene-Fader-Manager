@@ -39,6 +39,7 @@ namespace SceneFader {
 
 		protected override void Awake() {
 			base.Awake();
+			DontDestroyOnLoad(gameObject);
 
 			animator = GetComponent<Animator>();
 			canvasGroup = canvas.GetComponent<CanvasGroup>();
