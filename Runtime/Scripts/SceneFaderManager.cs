@@ -39,6 +39,7 @@ namespace SceneFader {
 
 		private Func<IEnumerator[]> onFadeInFinish;
 		private Coroutine coroutineTasks;
+		private float minSeconds;
 		
 		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
@@ -61,7 +62,7 @@ namespace SceneFader {
 		/// </summary>
 		public event Action OnFadeOut;
 
-		public bool IsOn { get; private set; }
+		public bool IsWorking { get; private set; }
 
 		public float ProgressClamp { get; private set; }
 
@@ -93,7 +94,7 @@ namespace SceneFader {
 				
 				//Perform operations
 				if(onFadeInFinish != null) {
-					coroutineTasks = StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
+					coroutineTasks = StartCoroutine(CoroutinePerformTasks(minSeconds, onFadeInFinish?.Invoke(), () => {
 						FadeOut();
 						onTasksFinished?.Invoke();
 					}));
@@ -116,30 +117,31 @@ namespace SceneFader {
 		/// <para>This is where you want to load in and out scenes.</para>
 		/// <para>Main method for using the SceneFaderManager.</para>
 		/// </summary>
-		/// <param name="seconds"></param>
-		/// <param name="tasks"></param>
-		public void FadeAndPerformTasks(int seconds, params IEnumerator[] tasks) {
+		/// <param name="seconds">The minimum amount of seconds to wait for.</param>
+		/// <param name="tasks">The array of tasks to perform.</param>
+		public void FadeAndPerformTasks(float seconds = 0, params IEnumerator[] tasks) {
 			//Block flow if tasks is empty
 			if(tasks.Length <= 0) return;
 			
 			//Block flow if manager is already working
-			if(IsOn) {
+			if(IsWorking) {
 				Debug.LogWarning(Tag + "Cant perform tasks, already working.");
 				return;
 			}
 
-			IsOn = true;
-			canvasGroup.blocksRaycasts = true;
-
-			animator.SetBool("isShowing", true);
+			minSeconds = seconds;
 
 			//Add callback when fade in has finished
 			onFadeInFinish = () => {
 				return tasks;
 			};
+			
+			FadeIn();
 		}
 
-		private IEnumerator CoroutinePerformTasks(IEnumerator[] tasks, Action onFinish = null) {
+		private IEnumerator CoroutinePerformTasks(float seconds, IEnumerator[] tasks, Action onFinish = null) {
+			DateTime timeStart = DateTime.Now;
+
 			onTasksStarted?.Invoke();
 			OnTasksStarted?.Invoke();
 			
@@ -150,14 +152,33 @@ namespace SceneFader {
 				yield return null;
 			}
 			
+			DateTime timeEnd = DateTime.Now;
+			TimeSpan elapsedTime = timeEnd - timeStart;
+
+			//Check if the minimum amount of seconds has gone by
+			if(elapsedTime.TotalSeconds < seconds) {
+				float timeLeft = seconds - (float)elapsedTime.TotalSeconds;
+				yield return new WaitForSeconds(timeLeft);
+			}
+
 			onFinish?.Invoke();
+		}
+		
+		/// <summary>
+		/// Fades in the canvas.
+		/// </summary>
+		private void FadeIn() {
+			IsWorking = true;
+			canvasGroup.blocksRaycasts = true;
+			
+			animator.SetBool(IsShowing, true);
 		}
 
 		/// <summary>
-		/// Fades out the canvas
+		/// Fades out the canvas.
 		/// </summary>
 		private void FadeOut() {
-			IsOn = false;
+			IsWorking = false;
 			canvasGroup.blocksRaycasts = false;
 
 			animator.SetBool(IsShowing, false);
