@@ -33,6 +33,7 @@ namespace SceneFader.SceneManagement {
 			//yield return new WaitForSeconds(1f);
 
 			onFinished?.Invoke();
+			OnSceneLoaded?.Invoke(new []{scene});
 		}
 		
 		/// <summary>
@@ -93,6 +94,7 @@ namespace SceneFader.SceneManagement {
 			}
 			
 			onFinished?.Invoke();
+			OnSceneLoaded?.Invoke(scenes);
 		}
 
 		#endregion
@@ -130,6 +132,7 @@ namespace SceneFader.SceneManagement {
 			//yield return new WaitForSeconds(1f);
 
 			onFinished?.Invoke();
+			OnSceneUnloaded?.Invoke(new []{scene});
 		}
 		
 		/// <summary>
@@ -165,6 +168,7 @@ namespace SceneFader.SceneManagement {
 			}
 			
 			onFinished?.Invoke();
+			OnSceneUnloaded?.Invoke(scenes);
 		}
 
 		/// <summary>
@@ -175,22 +179,24 @@ namespace SceneFader.SceneManagement {
 		/// <returns></returns>
 		public static IEnumerator CoroutineUnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
 			string[] scenesToUnload = new string[SceneManager.sceneCount];
+			List<string> unloadedScenes = new List<string>();
 
 			//Loop through all of the existing scenes
 			for(int i = 0; i < SceneManager.sceneCount; i++) {
-				Scene currentScene = SceneManager.GetSceneAt(i);
+				Scene scene = SceneManager.GetSceneAt(i);
+				unloadedScenes.Add(scene.name);
 				
 				//Skip unloading if the scene is excluded
 				bool flagSkip = false;
 				foreach(string sceneExcept in scenesExcept) {
-					if(currentScene.name.Equals(sceneExcept)) {
+					if(scene.name.Equals(sceneExcept)) {
 						flagSkip = true;
 						break;
 					}
 				}
 				if(flagSkip) continue;
 
-				scenesToUnload[i] = currentScene.name;
+				scenesToUnload[i] = scene.name;
 			}
 
 			foreach(string scene in scenesToUnload) {
@@ -206,6 +212,7 @@ namespace SceneFader.SceneManagement {
 			}
 			
 			onFinished?.Invoke();
+			OnSceneUnloaded?.Invoke(unloadedScenes.ToArray());
 		}
 		
 		#endregion

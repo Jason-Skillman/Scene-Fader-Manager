@@ -17,6 +17,15 @@ namespace SceneFader.SceneManagement {
 			None = 2,
 		}
 
+		/// <summary>
+		/// Fires when a scene has been loaded.
+		/// </summary>
+		public static event Action<string[]> OnSceneLoaded;
+		/// <summary>
+		/// Fires when a scene has been loaded.
+		/// </summary>
+		public static event Action<string[]> OnSceneUnloaded;
+
 		#region LoadScene
 
 		/// <summary>
@@ -33,7 +42,10 @@ namespace SceneFader.SceneManagement {
 			}
 
 			AsyncOperation op = SceneManager.LoadSceneAsync(scene);
-			op.completed += _ => onFinished?.Invoke();
+			op.completed += _ => {
+				onFinished?.Invoke();
+				OnSceneLoaded?.Invoke(new []{scene});
+			};
 		}
 
 		/// <summary>
@@ -85,7 +97,10 @@ namespace SceneFader.SceneManagement {
 
 				if(op == null) continue;
 
-				op.completed += _ => onFinished?.Invoke();
+				op.completed += _ => {
+					onFinished?.Invoke();
+					OnSceneLoaded?.Invoke(scenes);
+				};
 				break;
 			}
 		}
@@ -126,7 +141,10 @@ namespace SceneFader.SceneManagement {
 			}
 			
 			AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
-			op.completed += _ => onFinished?.Invoke();
+			op.completed += _ => {
+				onFinished?.Invoke();
+				OnSceneUnloaded?.Invoke(new []{scene});
+			};
 		}
 		
 		/// <summary>
@@ -165,7 +183,10 @@ namespace SceneFader.SceneManagement {
 				
 				if(op == null) continue;
 
-				op.completed += _ => onFinished?.Invoke();
+				op.completed += _ => {
+					onFinished?.Invoke();
+					OnSceneUnloaded?.Invoke(scenes);
+				};
 				break;
 			}
 		}
@@ -178,22 +199,24 @@ namespace SceneFader.SceneManagement {
 		public static void UnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
 			int sceneCount = SceneManager.sceneCount;
 			AsyncOperation[] operations = new AsyncOperation[sceneCount];
+			List<string> unloadedScenes = new List<string>();
 			
 			//Loop through all of the existing scenes
 			for(int i = 0; i < sceneCount; i++) {
-				Scene currentScene = SceneManager.GetSceneAt(i);
+				Scene scene = SceneManager.GetSceneAt(i);
+				unloadedScenes.Add(scene.name);
 
 				//Skip unloading if the scene is excluded
 				bool flagSkip = false;
 				foreach(string sceneExcept in scenesExcept) {
-					if(currentScene.name.Equals(sceneExcept)) {
+					if(scene.name.Equals(sceneExcept)) {
 						flagSkip = true;
 						break;
 					}
 				}
 				if(flagSkip) continue;
 
-				AsyncOperation op = SceneManager.UnloadSceneAsync(currentScene);
+				AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
 				operations[i] = op;
 			}
 			
@@ -203,7 +226,10 @@ namespace SceneFader.SceneManagement {
 				
 				if(op == null) continue;
 
-				op.completed += _ => onFinished?.Invoke();
+				op.completed += _ => {
+					onFinished?.Invoke();
+					OnSceneUnloaded?.Invoke(unloadedScenes.ToArray());
+				};
 				break;
 			}
 		}

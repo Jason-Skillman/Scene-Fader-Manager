@@ -14,14 +14,19 @@ namespace SceneFader {
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
 		[Header("Animation Speeds"), SerializeField]
-		private float minWaitTime = 0.0f;
-		[SerializeField]
 		private float fadeInMultiplier = 0.15f;
 		[SerializeField]
 		private float fadeOutMultiplier = 0.15f;
 
 		[Header("References"), SerializeField]
 		private GameObject canvas = default;
+
+		[SerializeField, Space]
+		[Tooltip("Fires when all of the tasks are finished and the manager starts fading out.")]
+		private UnityEvent onTasksFinished = default;
+		[SerializeField]
+		[Tooltip("Fires when the manager has completely faded out and the screen is visible.")]
+		private UnityEvent onFadeOut = default;
 
 		private Animator animator;
 		private CanvasGroup canvasGroup;
@@ -32,6 +37,15 @@ namespace SceneFader {
 		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
 		private static readonly int IsShowing = Animator.StringToHash("isShowing");
+
+		/// <summary>
+		/// Fires when all of the tasks are finished and the manager starts fading out.
+		/// </summary>
+		public event Action OnTasksFinished;
+		/// <summary>
+		/// Fires when the manager has completely faded out and the screen is visible.
+		/// </summary>
+		public event Action OnFadeOut;
 
 		public bool IsOn { get; private set; }
 
@@ -64,15 +78,19 @@ namespace SceneFader {
 				if(onFadeInFinish != null) {
 					coroutineTasks = StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
 						FadeOut();
+						onTasksFinished?.Invoke();
 					}));
 				} else {
 					FadeOut();
+					onTasksFinished?.Invoke();
+					OnTasksFinished?.Invoke();
 				}
 
 				onFadeInFinish = null;
 
 			} else if(stateInfo.IsName("FadeOut")) {
-				//Todo: add events here
+				onFadeOut?.Invoke();
+				OnFadeOut?.Invoke();
 			}
 		}
 
