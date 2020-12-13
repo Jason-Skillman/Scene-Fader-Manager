@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 namespace SceneFader {
 	public class SceneFaderManager : SingletonBehavior<SceneFaderManager>, IStateMachineCallback {
+		
+		private const string Tag = "[SceneFaderManager] ";
 
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
@@ -24,8 +26,8 @@ namespace SceneFader {
 		private Animator animator;
 		private CanvasGroup canvasGroup;
 
-		//private Action onFadeInFinish;
 		private Func<IEnumerator[]> onFadeInFinish;
+		private Coroutine coroutineTasks;
 		
 		private static readonly int FadeInMultiplier = Animator.StringToHash("fadeInMultiplier");
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
@@ -46,24 +48,12 @@ namespace SceneFader {
 		}
 
 		private void Start() {
-			IsOn = false;
 			canvasGroup.blocksRaycasts = false;
 
 			animator.SetFloat(FadeInMultiplier, fadeInMultiplier);
 			animator.SetFloat(FadeOutMultiplier, fadeOutMultiplier);
 		}
 
-		private void Update() {
-			//Debug
-			if(Input.GetKeyDown(KeyCode.Alpha2)) {
-				FadeOut();
-			}
-
-			if(Input.GetKeyDown(KeyCode.Alpha3)) {
-				//StopCoroutine(coroutine);
-			}
-		}
-		
 		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) { }
 
 		public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) { }
@@ -71,30 +61,35 @@ namespace SceneFader {
 		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
 			if(stateInfo.IsName("FadeIn")) {
 				//Perform operations
-				
-				//onFadeInFinish?.Invoke();
-				//onFadeInFinish = null;
-
 				if(onFadeInFinish != null) {
-					//Todo: cache
-					StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
+					coroutineTasks = StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
 						FadeOut();
 					}));
 				} else {
 					FadeOut();
 				}
-				
+
+				onFadeInFinish = null;
+
 			} else if(stateInfo.IsName("FadeOut")) {
-				//Done fading out
+				//Todo: add events here
 			}
 		}
 
 		/// <summary>
-		/// Main method!
+		/// Fades out the screen and performs the list of tasks. Fades back in when tasks are completed.
+		/// <para>This is where you want to load in and out scenes.</para>
+		/// <para>Main method for using the SceneFaderManager.</para>
 		/// </summary>
-		public void StartOperation(int seconds, params IEnumerator[] tasks) {
+		/// <param name="seconds"></param>
+		/// <param name="tasks"></param>
+		public void FadeAndPerformTasks(int seconds, params IEnumerator[] tasks) {
+			//Block flow if tasks is empty
+			if(tasks.Length <= 0) return;
+			
+			//Block flow if manager is already working
 			if(IsOn) {
-				Debug.LogWarning("Scene manager is already loading.");
+				Debug.LogWarning(Tag + "Cant perform tasks, already working.");
 				return;
 			}
 
@@ -112,6 +107,9 @@ namespace SceneFader {
 		private IEnumerator CoroutinePerformTasks(IEnumerator[] tasks, Action onFinish = null) {
 			foreach(IEnumerator task in tasks) {
 				yield return task;
+				
+				//Wait until next frame until starting the next task
+				yield return null;
 			}
 			
 			onFinish?.Invoke();
@@ -126,8 +124,6 @@ namespace SceneFader {
 
 			animator.SetBool(IsShowing, false);
 		}
-		
-		
 		
 	}
 }
