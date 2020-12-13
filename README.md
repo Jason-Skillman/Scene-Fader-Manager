@@ -1,103 +1,114 @@
-# Scriptable-Events
-Quickly setup static events with scriptable objects using the observer pattern. Custom events can also be created.
+# Scene-Fader-Manager
+A scene fader manager that loads in scenes and performs tasks. Comes with an extensive `SceneUtility` class which handles scene management.
+
+## Prerequisites
+This package uses the `Singleton` and `StateMachineCallback` packages. It is recommended to install both of these packages before installing this one.
+
+[https://github.com/Jason-Skillman/Unity-Singleton](https://github.com/Jason-Skillman/Unity-Singleton)
+
+[https://github.com/Jason-Skillman/State-Machine-Callback](https://github.com/Jason-Skillman/State-Machine-Callback)
+
+---
+**Note:**
+
+Both of these links can also be installed with the same steps below.
+
+---
 
 ## How to install
 This package can be installed through the Unity `Package Manager`
 
 Open up the package manager `Window/Package Manager` and click on `Add package from git URL...`.
 
-![unity_package_manager_git_drop_down](https://i.imgur.com/wRDQU8Z.png)
+![unity_package_manager_git_drop_down](Documentation~/images/unity_package_manager_git_drop_down.png))
 
 Paste in this repository's url.
 
-`https://github.com/Jason-Skillman/Scriptable-Events.git`
+`https://github.com/Jason-Skillman/Scene-Fader-Manager.git`
 
-![unity_package_manager_git_with_url](https://i.imgur.com/sNQYA13.png)
+![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png))
 
 Click `Add` and the package will be installed in your project.
 
-## How to use
-You can create an event by going to `Create/Scriptable Events/<Event Type>` in the `Project` window. Each event is a scriptable prefab. Multible events can be created for your project and different event types exist. Some of the primitive event types include void, int, float, string and bool.
+## How to setup
+You can create the manager by going to `Create/Scene Fader/Scene Fader Manager` in the `Hierarchy` window. Only one manager should exist at any given time.
 
-### Subscribing to an event
-To subscribe to an event you can attach a method to the `OnTrigger` event in the scriptable object.
+## SceneFaderManager
+The manager is is charge of fading in and out the screen while performing tasks and operations.
 
-This is an example of a monobehavior script subscriping to `EventVoid`. Note: Dont forget to unsubscribe from the event when you no longer need to.
+![scene_fader_manager](Documentation~/images/scene_fader_manager.png))
 
+Example 1: This example creates a `IEnumerator` tasks and gives it to the `SceneFaderManager`. While the screen has fade to black the scene will be loaded in.
 ```C#
-[SerializeField]
-private EventVoid voidEvent;
+//This task will load in Scene01
+IEnumerator task1 = SceneUtility.CoroutineLoadScene("Scene01");
 
-private void OnEnable() {
-	voidEvent.OnTrigger += SpawnBall;
-}
-
-private void OnDisable() {
-	voidEvent.OnTrigger -= SpawnBall;
-}
-
-private void SpawnBall() {
-	//Instantiate ball here...
-}
+//Give the task to SceneFaderManager
+SceneFaderManager.Instance.FadeAndPerformTasks(0, task1);
 ```
 
-Drag the scriptable object event into the `EventVoid` variable in the inspector and the game object will subscribe to the event when enabled/start.
-
+Example 2: This example creates two tasks and gives it to the `SceneFaderManager`. Together these tasks load in level 2 and unload level 1.
 ```C#
-[SerializeField]
-private EventVoid voidEvent;
+//This task will load in all the scenes in sceneArray
+IEnumerator task1 = SceneUtility.CoroutineLoadScenesAdditive(sceneArray);
+//This task will unload Scene01
+IEnumerator task2 = SceneUtility.CoroutineUnloadScene("Scene01");
+
+//Give the task to SceneFaderManager
+SceneFaderManager.Instance.FadeAndPerformTasks(0, task1, task2);
 ```
 
-![scriptable_object_subscribing_event_inspector](https://i.imgur.com/wGfJZdb.png)
+These are just examples for loading in and out scenes but custom coroutines can be created and given to the `SceneFaderManager`. Ex. Generate a procedural level or spawn in all players.
 
-### Triggering an event
-To trigger an existing event call the `Trigger()` method from the scriptable object. Every subscribed listener will get the fired event.
-
-This is an example of a monobehavior who will trigger the `EventVoid` by calling `Trigger()` when the player enters it's trigger box.
-
-```C#
-[SerializeField]
-private EventVoid voidEvent;
-
-private void OnTriggerEnter(Collider other) {
-    if(!other.CompareTag("Player")) return;
-
-    voidEvent.Trigger();
-}
-```
-
-## Creating custom events
-If the existing primitive event types are not enough, custom event types can be written. Using the `UnityAction<>` delegate you specify different arguments and data.
-
-Ex. Dictionary event with int as the key and string as the value `UnityAction<int, string>`.
-
-Create a new script which extends `ScriptableObject` and follow a near similar format to the primitive types. Source code examples can be found in `ScriptableEvents/Runtime/Scripts/Events/PrimitiveTypes`.
-
-### EventInt class example
-|Property/Method|Description|
+|Event|Description|
 |---|---|
-|`UnityAction<int>` `OnTrigger`|Event called when the scriptable event is triggered.|
-|`Trigger()`|Main method to call to trigger the event.|
+|`OnFadeIn`|Fires when the manager has started fading in.|
+|`OnTasksStarted`|Fires when the manager's tasks have just started.|
+|`OnTasksFinished`|Fires when all of the tasks are finished and the manager starts fading out.|
+|`OnFadeOut`|Fires when the manager has completely faded out and the screen is visible.|
 
-## Supported event types
+## Components
 
-### Primitive events
-- void
-- int
-- float
-- double
-- long
-- bool
-- string
+### Persistent
+The `Persistent` component is used for quickly making game objects's persistent. When you are loading in and out scenes you should always have an active camera to show the UI and hear audio. Uses `DontDestroyOnLoad()`.
 
-### Primitive array events
-- int
-- float
-- double
-- long
-- bool
-- string
+### SceneUtilityFunctions
+The `SceneUtilityFunctions` component is a wraper class that uses the static functions found in the `SceneUtility`. Can be used to instantly load or unload scenes with a UI button or other event.
 
-### Unity events
-- GameObject
-- Scene
+### SceneFaderFunctions
+The `SceneFaderFunctions` component is a wraper class that uses the functions found in the `SceneFaderManager`. Can be used to load or unload scenes using the fader's animation.
+
+## SceneUtility
+`SceneUtility` is a static class which houses multible methods to load in and out scenes. `SceneUtility` is a wrapper for Unity's `SceneManager` and adds extra functionality, guard clauses, and performace boosts.
+
+|Property|Description|
+|---|---|
+|`LogType` `LogLevel`|Sets the utilities's log level.|
+
+#### Static methods
+These methods are all static and can be called from anywhere.
+
+|Method|Description|
+|---|---|
+|`LoadScene()`|Loads a single scene.|
+|`LoadScenesAdditive()`|Loads in an array of scenes additively.|
+|`LoadActiveScene()`|Loads in the active base scene with an array of additive scenes.|
+|`UnloadScene()`|Unloads a single scene.|
+|`UnloadScenes()`|Unloads an array of scenes.|
+|`UnloadAllScenesExceptFor()`|Unloads all scenes except for the provided array.|
+
+#### Coroutines
+These methods perform the same functions as the ones above but can be called from a `MonoBehaviour` and can be used with the `SceneFaderManager`'s task system.
+
+|Method|Description|
+|---|---|
+|`CoroutineLoadScene()`|Loads a single scene.|
+|`CoroutineLoadScenesAdditive()`|Loads in an array of scenes additively.|
+|`CoroutineUnloadScene()`|Unloads a single scene.|
+|`CoroutineUnloadScenes()`|Unloads an array of scenes.|
+|`CoroutineUnloadAllScenesExceptFor()`|Unloads all scenes except for the provided array.|
+
+|Event|Description|
+|---|---|
+|`Action<string[]>` `OnSceneLoaded`|Fires when a scene has been loaded.|
+|`Action<string[]>` `OnSceneUnloaded`|Fires when a scene has been loaded.|

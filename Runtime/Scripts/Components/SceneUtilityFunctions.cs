@@ -1,62 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using SceneFader;
 using SceneFader.SceneManagement;
 using UnityEngine;
 
 namespace SceneFader.Components {
 	public class SceneUtilityFunctions : MonoBehaviour {
     
-    	public string[] scenes;
+        public string[] additiveScenes;
     
     	#region Async
     	
-    	public void LoadScene() {
-    		SceneUtility.LoadScene(scenes[0], () => print("Done"));
+    	public void LoadScene(string scene) {
+    		SceneUtility.LoadScene(scene);
     	}
     
     	public void LoadScenesAdditive() {
-    		SceneUtility.LoadScenesAdditive(scenes, () => print("Done"));
+    		SceneUtility.LoadScenesAdditive(additiveScenes);
     	}
     
-    	public void LoadActiveScene() {
-    		SceneUtility.LoadActiveScene(scenes[0], scenes, () => print("Done"), true);
+    	public void LoadActiveScene(string scene) {
+    		SceneUtility.LoadActiveScene(scene, additiveScenes);
     	}
     
-    	public void UnloadScene() {
-    		SceneUtility.UnloadScene(scenes[0], () => print("Done"));
+    	public void UnloadScene(string scene) {
+    		SceneUtility.UnloadScene(scene);
     	}
     
     	public void UnloadScenes() {
-    		SceneUtility.UnloadScenes(scenes, () => print("Done"));
+    		SceneUtility.UnloadScenes(additiveScenes);
     	}
     	
     	public void UnloadAllScenesExceptFor() {
-    		SceneUtility.UnloadAllScenesExceptFor(scenes, () => print("Done"));
+    		SceneUtility.UnloadAllScenesExceptFor(additiveScenes);
     	}
     
     	#endregion
     
     	#region IEnumerator
     
-    	public void CoroutineLoadScene() {
-    		StartCoroutine(SceneUtility.CoroutineLoadScene(scenes[0]));
+    	public void CoroutineLoadScene(string scene) {
+    		StartCoroutine(SceneUtility.CoroutineLoadScene(scene));
     	}
     
     	public void CoroutineLoadScenesAdditive() {
-    		StartCoroutine(SceneUtility.CoroutineLoadScenesAdditive(scenes));
+    		StartCoroutine(SceneUtility.CoroutineLoadScenesAdditive(additiveScenes));
     	}
     	
-    	public void CoroutineUnloadScene() {
-    		StartCoroutine(SceneUtility.CoroutineUnloadScene(scenes[0]));
+    	public void CoroutineUnloadScene(string scene) {
+    		StartCoroutine(SceneUtility.CoroutineUnloadScene(scene));
     	}
     
     	public void CoroutineUnloadScenes() {
-    		StartCoroutine(SceneUtility.CoroutineUnloadScenes(scenes));
+    		StartCoroutine(SceneUtility.CoroutineUnloadScenes(additiveScenes));
     	}
     	
     	public void CoroutineUnloadAllScenesExceptFor() {
-    		StartCoroutine(SceneUtility.CoroutineUnloadAllScenesExceptFor(scenes, () => print("Done")));
+    		StartCoroutine(SceneUtility.CoroutineUnloadAllScenesExceptFor(additiveScenes));
     	}
     
     	#endregion

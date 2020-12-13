@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -132,6 +131,7 @@ namespace SceneFader.SceneManagement {
 					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 				return;
 			}
+			
 			//Block flow if the scene is not loaded
 			Scene sceneObj = SceneManager.GetSceneByName(scene);
 			if(!sceneObj.isLoaded) {

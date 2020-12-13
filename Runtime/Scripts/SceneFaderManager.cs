@@ -14,9 +14,9 @@ namespace SceneFader {
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
 		[Header("Animation Speeds"), SerializeField]
-		private float fadeInMultiplier = 0.15f;
+		private float fadeInMultiplier = 1.75f;
 		[SerializeField]
-		private float fadeOutMultiplier = 0.15f;
+		private float fadeOutMultiplier = 1.75f;
 
 		[Header("References"), SerializeField]
 		private GameObject canvas = default;
@@ -64,9 +64,9 @@ namespace SceneFader {
 
 		public bool IsWorking { get; private set; }
 
-		public float ProgressClamp { get; private set; }
+		//public float ProgressClamp { get; private set; }
 
-		public int Progress => (int) (ProgressClamp * 100);
+		//public int Progress => (int) (ProgressClamp * 100);
 
 		protected override void Awake() {
 			base.Awake();
@@ -132,9 +132,7 @@ namespace SceneFader {
 			minSeconds = seconds;
 
 			//Add callback when fade in has finished
-			onFadeInFinish = () => {
-				return tasks;
-			};
+			onFadeInFinish = () => tasks;
 			
 			FadeIn();
 		}
@@ -144,7 +142,7 @@ namespace SceneFader {
 
 			onTasksStarted?.Invoke();
 			OnTasksStarted?.Invoke();
-			
+
 			foreach(IEnumerator task in tasks) {
 				yield return task;
 				

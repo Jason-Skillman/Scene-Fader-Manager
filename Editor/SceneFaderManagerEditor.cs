@@ -9,7 +9,7 @@ namespace SceneFader.Editor {
 	public static class SceneFaderManagerEditor {
 	
 		[MenuItem("GameObject/Scene Fader/Scene Fader Manager", false, 10)]
-		static void CreateCustomPrimitiveGameObject(MenuCommand menuCommand) {
+		static void CreateManager(MenuCommand menuCommand) {
 			//Check if the manager has already been created
 			SceneFaderManager manager = Object.FindObjectOfType<SceneFaderManager>();
 

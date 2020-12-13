@@ -114,11 +114,19 @@ namespace SceneFader.SceneManagement {
 					Debug.LogWarning(Tag + "The scene \"" + scene + "\" cannot be found or does not exist.");
 				yield break;
 			}
+			
 			//Block flow if the scene is not loaded
 			Scene sceneObj = SceneManager.GetSceneByName(scene);
 			if(!sceneObj.isLoaded) {
 				if(LogLevel >= LogType.All)
 					Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
+				yield break;
+			}
+			
+			//Block flow if their is only one scene left
+			if(SceneManager.sceneCount == 1) {
+				if(LogLevel >= LogType.Less)
+					Debug.LogWarning(Tag + "The scene \"" + scene + "\" is the last scene. Cant unload the last scene.");
 				yield break;
 			}
 			
@@ -155,6 +163,13 @@ namespace SceneFader.SceneManagement {
 				if(!sceneObj.isLoaded) {
 					if(LogLevel >= LogType.All)
 						Debug.LogWarning(Tag + "The scene \"" + scene + "\" is not loaded.");
+					continue;
+				}
+				
+				//Block flow if their is only one scene left
+				if(SceneManager.sceneCount == 1) {
+					if(LogLevel >= LogType.Less)
+						Debug.LogWarning(Tag + "The scene \"" + scene + "\" is the last scene. Cant unload the last scene.");
 					continue;
 				}
 
