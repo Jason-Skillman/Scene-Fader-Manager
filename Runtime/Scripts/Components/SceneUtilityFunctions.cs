@@ -5,7 +5,7 @@ using SceneFader.SceneManagement;
 using UnityEngine;
 
 namespace SceneFader.Components {
-	public class SceneLoaderUtilityFunctions : MonoBehaviour {
+	public class SceneUtilityFunctions : MonoBehaviour {
     
     	public string[] scenes;
     

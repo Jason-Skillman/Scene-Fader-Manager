@@ -22,6 +22,12 @@ namespace SceneFader {
 		private GameObject canvas = default;
 
 		[SerializeField, Space]
+		[Tooltip("Fires when the manager has started fading in.")]
+		private UnityEvent onFadeIn = default;
+		[SerializeField]
+		[Tooltip("Fires when the manager's tasks have just started.")]
+		private UnityEvent onTasksStarted = default;
+		[SerializeField]
 		[Tooltip("Fires when all of the tasks are finished and the manager starts fading out.")]
 		private UnityEvent onTasksFinished = default;
 		[SerializeField]
@@ -38,6 +44,14 @@ namespace SceneFader {
 		private static readonly int FadeOutMultiplier = Animator.StringToHash("fadeOutMultiplier");
 		private static readonly int IsShowing = Animator.StringToHash("isShowing");
 
+		/// <summary>
+		/// Fires when the manager has started fading in.
+		/// </summary>
+		public event Action OnFadeIn;
+		/// <summary>
+		/// Fires when the manager's tasks have just started.
+		/// </summary>
+		public event Action OnTasksStarted;
 		/// <summary>
 		/// Fires when all of the tasks are finished and the manager starts fading out.
 		/// </summary>
@@ -74,6 +88,9 @@ namespace SceneFader {
 
 		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
 			if(stateInfo.IsName("FadeIn")) {
+				onFadeIn?.Invoke();
+				OnFadeIn?.Invoke();
+				
 				//Perform operations
 				if(onFadeInFinish != null) {
 					coroutineTasks = StartCoroutine(CoroutinePerformTasks(onFadeInFinish?.Invoke(), () => {
@@ -123,6 +140,9 @@ namespace SceneFader {
 		}
 
 		private IEnumerator CoroutinePerformTasks(IEnumerator[] tasks, Action onFinish = null) {
+			onTasksStarted?.Invoke();
+			OnTasksStarted?.Invoke();
+			
 			foreach(IEnumerator task in tasks) {
 				yield return task;
 				
