@@ -2,7 +2,7 @@
   "name": "com.jasonskillman.scenefadermanager",
   "displayName": "Scene Fader Manager",
   "version": "1.0.0",
-  "unity": "2019.1",
+  "unity": "2020.1",
   "description": "A scene fader manager that loads in scenes and performs tasks. Comes with an extensive SceneUtility class which handles scene management.",
   "keywords": [
     "scene management"

@@ -8,6 +8,8 @@ This package uses the `Singleton` and `StateMachineCallback` packages. It is rec
 
 [https://github.com/Jason-Skillman/State-Machine-Callback](https://github.com/Jason-Skillman/State-Machine-Callback)
 
+Requires Unity version 2020.1 or greater.
+
 ---
 **Note:**
 
@@ -29,15 +31,6 @@ Paste in this repository's url.
 ![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png))
 
 Click `Add` and the package will be installed in your project.
-
----
-**NOTE:** Unity 2019.2 or lower
-
-Other ways to install the package
-1. To install the package in an earler version of Unity you can clone this git into your project's `Packages` folder.
-1. Another alternative would be to download the package and in the `Package Manager` click on `Add package from disk...` and select the package's root folder.
-
----
 
 ## How to setup
 You can create the manager by going to `Create/Scene Fader/Scene Fader Manager` in the `Hierarchy` window. Only one manager should exist at any given time.
