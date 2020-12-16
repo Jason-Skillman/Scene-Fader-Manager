@@ -13,7 +13,7 @@ Requires Unity version 2020.1 or greater.
 ---
 **Note:**
 
-Both of these links can also be installed with the same steps below.
+Prerequisite packages can also be installed with the same steps below.
 
 ---
 
@@ -26,7 +26,7 @@ Open up the package manager `Window/Package Manager` and click on `Add package f
 
 Paste in this repository's url.
 
-`https://github.com/Jason-Skillman/Scriptable-Events.git`
+`https://github.com/Jason-Skillman/Scene-Fader-Manager.git`
 
 ![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png))
 

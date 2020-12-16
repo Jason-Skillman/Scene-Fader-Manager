@@ -19,5 +19,8 @@
       "description": "Shows a canvas example using the Utility and SceneFader function.",
       "path": "Samples~/UtilitySample"
     }
-  ]
+  ],
+  "dependencies": {
+	"com.unity.textmeshpro": "2.0.0"
+  }
 }
