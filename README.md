@@ -4,11 +4,9 @@ A scene fader manager that loads in scenes and performs tasks. Comes with an ext
 ## Prerequisites
 This package uses the `Singleton` and `StateMachineCallback` packages. It is recommended to install both of these packages before installing this one.
 
-[https://github.com/Jason-Skillman/Unity-Singleton](https://github.com/Jason-Skillman/Unity-Singleton)
-
-[https://github.com/Jason-Skillman/State-Machine-Callback](https://github.com/Jason-Skillman/State-Machine-Callback)
-
-Requires Unity version 2020.1 or greater.
+1. https://github.com/Jason-Skillman/Unity-Singleton
+1. https://github.com/Jason-Skillman/State-Machine-Callback
+1. Requires Unity version 2020.1 or greater.
 
 ---
 **Note:**
@@ -22,13 +20,13 @@ This package can be installed through the Unity `Package Manager` with Unity ver
 
 Open up the package manager `Window/Package Manager` and click on `Add package from git URL...`.
 
-![unity_package_manager_git_drop_down](Documentation~/images/unity_package_manager_git_drop_down.png))
+![unity_package_manager_git_drop_down](Documentation~/images/unity_package_manager_git_drop_down.png)
 
 Paste in this repository's url.
 
 `https://github.com/Jason-Skillman/Scene-Fader-Manager.git`
 
-![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png))
+![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png)
 
 Click `Add` and the package will be installed in your project.
 
@@ -38,7 +36,7 @@ You can create the manager by going to `Create/Scene Fader/Scene Fader Manager` 
 ## SceneFaderManager
 The manager is is charge of fading in and out the screen while performing tasks and operations.
 
-![scene_fader_manager](Documentation~/images/scene_fader_manager.png))
+![scene_fader_manager](Documentation~/images/scene_fader_manager.png)
 
 Example 1: This example creates a `IEnumerator` tasks and gives it to the `SceneFaderManager`. While the screen has fade to black the scene will be loaded in.
 ```C#

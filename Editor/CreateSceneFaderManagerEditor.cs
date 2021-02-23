@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace SceneFader.Editor {
-	public static class SceneFaderManagerEditor {
+	public static class CreateSceneFaderManagerEditor {
 	
 		[MenuItem("GameObject/Scene Fader/Scene Fader Manager", false, 10)]
-		static void CreateManager(MenuCommand menuCommand) {
+		static void CreateSceneFaderManager(MenuCommand menuCommand) {
 			//Check if the manager has already been created
 			SceneFaderManager manager = Object.FindObjectOfType<SceneFaderManager>();
 
@@ -20,12 +20,22 @@ namespace SceneFader.Editor {
 			}
 
 			//Use the asset database to fetch the console prefab
-			GameObject managerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.jasonskillman.scenefadermanager/Runtime/Prefabs/SceneFaderManager.prefab");
+			GameObject managerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(
+				"Packages/com.jasonskillman.scenefadermanager/Runtime/Prefabs/SceneFaderManager.prefab");
 
 			//Instantiate the prefab in the hierarchy
 			PrefabUtility.InstantiatePrefab(managerPrefab);
         
 			Selection.activeObject = managerPrefab;
+			
+			
+			//Instantiate an EventSystem if one does not exist
+			GameObject eventSystem = GameObject.Find("EventSystem");
+			if(eventSystem != null) return;
+        
+			eventSystem = new GameObject("EventSystem");
+			eventSystem.AddComponent<EventSystem>();
+			eventSystem.AddComponent<StandaloneInputModule>();
 		}
 
 	}
