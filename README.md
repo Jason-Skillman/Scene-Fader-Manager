@@ -2,11 +2,10 @@
 A scene fader manager that loads in scenes and performs tasks. Comes with an extensive `SceneUtility` class which handles scene management.
 
 ## Prerequisites
-This package uses the `Singleton` and `StateMachineCallback` packages. It is recommended to install both of these packages before installing this one.
+This package uses the `Singleton-Behavior` and `StateMachineCallback` packages. It is recommended to install both of these packages before installing this one.
 
-1. https://github.com/Jason-Skillman/Unity-Singleton
+1. https://github.com/Jason-Skillman/Singleton-Behavior
 1. https://github.com/Jason-Skillman/State-Machine-Callback
-1. Requires Unity version 2020.1 or greater.
 
 ---
 **Note:**
@@ -29,6 +28,15 @@ Paste in this repository's url.
 ![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png)
 
 Click `Add` and the package will be installed in your project.
+
+---
+**NOTE:** For Unity version 2019.2 or lower
+
+If you are using Unity 2019.2 or lower than you will not be able to install the package with the above method. Here are a few other ways to install the package.
+1. You can clone this git repository into your project's `Packages` folder.
+1. Another alternative would be to download this package from GitHub as a zip file. Unzip and in the `Package Manager` click on `Add package from disk...` and select the package's root folder.
+
+---
 
 ## How to setup
 You can create the manager by going to `Create/Scene Fader/Scene Fader Manager` in the `Hierarchy` window. Only one manager should exist at any given time.

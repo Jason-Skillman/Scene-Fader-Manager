@@ -3551,7 +3551,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1078180831}
         m_TargetAssemblyTypeName: SceneLoaderUtilityFunction, JasonSkillman.SceneFaderManager
-        m_MethodName: UnloadAllScenesExceptFor
+        m_MethodName: UnloadAllScenesExcept
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4920,7 +4920,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1551519434}
         m_TargetAssemblyTypeName: SceneLoaderUtilityFunction, JasonSkillman.SceneFaderManager
-        m_MethodName: CoroutineUnloadAllScenesExceptFor
+        m_MethodName: CoroutineUnloadAllScenesExcept
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

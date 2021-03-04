@@ -30,8 +30,8 @@ namespace SceneFader.Components {
     		SceneUtility.UnloadScenes(additiveScenes);
     	}
     	
-    	public void UnloadAllScenesExceptFor() {
-    		SceneUtility.UnloadAllScenesExceptFor(additiveScenes);
+    	public void UnloadAllScenesExcept() {
+    		SceneUtility.UnloadAllScenesExcept(additiveScenes);
     	}
     
     	#endregion
@@ -54,8 +54,8 @@ namespace SceneFader.Components {
     		StartCoroutine(SceneUtility.CoroutineUnloadScenes(additiveScenes));
     	}
     	
-    	public void CoroutineUnloadAllScenesExceptFor() {
-    		StartCoroutine(SceneUtility.CoroutineUnloadAllScenesExceptFor(additiveScenes));
+    	public void CoroutineUnloadAllScenesExcept() {
+    		StartCoroutine(SceneUtility.CoroutineUnloadAllScenesExcept(additiveScenes));
     	}
     
     	#endregion

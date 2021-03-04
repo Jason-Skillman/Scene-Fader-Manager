@@ -13,9 +13,9 @@ namespace SceneFader.SceneManagement {
 		/// Loads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene name.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <returns></returns>
-		public static IEnumerator CoroutineLoadScene(string scene, Action onFinished = null) {
+		public static IEnumerator CoroutineLoadScene(string scene, Action onComplete = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -32,7 +32,7 @@ namespace SceneFader.SceneManagement {
 			//Debug
 			//yield return new WaitForSeconds(1f);
 
-			onFinished?.Invoke();
+			onComplete?.Invoke();
 			OnSceneLoaded?.Invoke(new []{scene});
 		}
 		
@@ -40,10 +40,10 @@ namespace SceneFader.SceneManagement {
 		/// Loads in an array of scenes additively.
 		/// </summary>
 		/// <param name="scenes">The array of scene names.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
 		/// <returns></returns>
-		public static IEnumerator CoroutineLoadScenesAdditive(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
+		public static IEnumerator CoroutineLoadScenesAdditive(string[] scenes, Action onComplete = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
 			//Step 1: List all of operations
@@ -93,7 +93,7 @@ namespace SceneFader.SceneManagement {
 				//yield return new WaitForSeconds(1f);
 			}
 			
-			onFinished?.Invoke();
+			onComplete?.Invoke();
 			OnSceneLoaded?.Invoke(scenes);
 		}
 
@@ -105,9 +105,9 @@ namespace SceneFader.SceneManagement {
 		/// Unloads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene to unload.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <returns></returns>
-		public static IEnumerator CoroutineUnloadScene(string scene, Action onFinished = null) {
+		public static IEnumerator CoroutineUnloadScene(string scene, Action onComplete = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -139,7 +139,7 @@ namespace SceneFader.SceneManagement {
 			//Debug
 			//yield return new WaitForSeconds(1f);
 
-			onFinished?.Invoke();
+			onComplete?.Invoke();
 			OnSceneUnloaded?.Invoke(new []{scene});
 		}
 		
@@ -147,9 +147,9 @@ namespace SceneFader.SceneManagement {
 		/// Unloads an array of scenes.
 		/// </summary>
 		/// <param name="scenes">The scenes to unload.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <returns></returns>
-		public static IEnumerator CoroutineUnloadScenes(string[] scenes, Action onFinished = null) {
+		public static IEnumerator CoroutineUnloadScenes(string[] scenes, Action onComplete = null) {
 			foreach(string scene in scenes) {
 				//Block flow if the scene does not exist
 				if(!Application.CanStreamedLevelBeLoaded(scene)) {
@@ -182,7 +182,7 @@ namespace SceneFader.SceneManagement {
 				//yield return new WaitForSeconds(1f);
 			}
 			
-			onFinished?.Invoke();
+			onComplete?.Invoke();
 			OnSceneUnloaded?.Invoke(scenes);
 		}
 
@@ -190,9 +190,9 @@ namespace SceneFader.SceneManagement {
 		/// Unloads all scenes except for the provided array.
 		/// </summary>
 		/// <param name="scenesExcept">The list of scenes to not unload</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <returns></returns>
-		public static IEnumerator CoroutineUnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
+		public static IEnumerator CoroutineUnloadAllScenesExcept(string[] scenesExcept, Action onComplete = null) {
 			string[] scenesToUnload = new string[SceneManager.sceneCount];
 			List<string> unloadedScenes = new List<string>();
 
@@ -226,7 +226,7 @@ namespace SceneFader.SceneManagement {
 				//yield return new WaitForSeconds(1f);
 			}
 			
-			onFinished?.Invoke();
+			onComplete?.Invoke();
 			OnSceneUnloaded?.Invoke(unloadedScenes.ToArray());
 		}
 		

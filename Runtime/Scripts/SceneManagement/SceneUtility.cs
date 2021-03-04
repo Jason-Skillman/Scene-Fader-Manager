@@ -31,8 +31,8 @@ namespace SceneFader.SceneManagement {
 		/// Loads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene to unload.</param>
-		/// <param name="onFinished">Optional callback.</param>
-		public static void LoadScene(string scene, Action onFinished = null) {
+		/// <param name="onComplete">Optional callback.</param>
+		public static void LoadScene(string scene, Action onComplete = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -42,7 +42,7 @@ namespace SceneFader.SceneManagement {
 
 			AsyncOperation op = SceneManager.LoadSceneAsync(scene);
 			op.completed += _ => {
-				onFinished?.Invoke();
+				onComplete?.Invoke();
 				OnSceneLoaded?.Invoke(new []{scene});
 			};
 		}
@@ -51,9 +51,9 @@ namespace SceneFader.SceneManagement {
 		/// Loads in an array of scenes additively.
 		/// </summary>
 		/// <param name="scenes">The array of scene names.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
-		public static void LoadScenesAdditive(string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
+		public static void LoadScenesAdditive(string[] scenes, Action onComplete = null, bool duplicateScenes = false) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
 			//Step 1: Load all of operations
@@ -97,7 +97,7 @@ namespace SceneFader.SceneManagement {
 				if(op == null) continue;
 
 				op.completed += _ => {
-					onFinished?.Invoke();
+					onComplete?.Invoke();
 					OnSceneLoaded?.Invoke(scenes);
 				};
 				break;
@@ -109,10 +109,10 @@ namespace SceneFader.SceneManagement {
 		/// </summary>
 		/// <param name="activeScene">The base scene to load as the active scene.</param>
 		/// <param name="scenes">The additional scenes to load additively after the base scene.</param>
-		/// <param name="onFinished">Optional callback.</param>
+		/// <param name="onComplete">Optional callback.</param>
 		/// <param name="duplicateScenes">Should duplicate scenes be allowed. False by default.</param>
-		public static void LoadActiveScene(string activeScene, string[] scenes, Action onFinished = null, bool duplicateScenes = false) {
-			LoadScene(activeScene, () => LoadScenesAdditive(scenes, onFinished, duplicateScenes));
+		public static void LoadActiveScene(string activeScene, string[] scenes, Action onComplete = null, bool duplicateScenes = false) {
+			LoadScene(activeScene, () => LoadScenesAdditive(scenes, onComplete, duplicateScenes));
 		}
 
 		#endregion
@@ -123,8 +123,8 @@ namespace SceneFader.SceneManagement {
 		/// Unloads a single scene.
 		/// </summary>
 		/// <param name="scene">The scene to unload.</param>
-		/// <param name="onFinished">Optional callback.</param>
-		public static void UnloadScene(string scene, Action onFinished = null) {
+		/// <param name="onComplete">Optional callback.</param>
+		public static void UnloadScene(string scene, Action onComplete = null) {
 			//Block flow if the scene does not exist
 			if(!Application.CanStreamedLevelBeLoaded(scene)) {
 				if(LogLevel >= LogType.Less)
@@ -142,7 +142,7 @@ namespace SceneFader.SceneManagement {
 			
 			AsyncOperation op = SceneManager.UnloadSceneAsync(scene);
 			op.completed += _ => {
-				onFinished?.Invoke();
+				onComplete?.Invoke();
 				OnSceneUnloaded?.Invoke(new []{scene});
 			};
 		}
@@ -151,8 +151,8 @@ namespace SceneFader.SceneManagement {
 		/// Unloads an array of scenes.
 		/// </summary>
 		/// <param name="scenes">The scenes to unload.</param>
-		/// <param name="onFinished">Optional callback.</param>
-		public static void UnloadScenes(string[] scenes, Action onFinished = null) {
+		/// <param name="onComplete">Optional callback.</param>
+		public static void UnloadScenes(string[] scenes, Action onComplete = null) {
 			AsyncOperation[] operations = new AsyncOperation[scenes.Length];
 
 			for(var i = 0; i < scenes.Length; i++) {
@@ -184,7 +184,7 @@ namespace SceneFader.SceneManagement {
 				if(op == null) continue;
 
 				op.completed += _ => {
-					onFinished?.Invoke();
+					onComplete?.Invoke();
 					OnSceneUnloaded?.Invoke(scenes);
 				};
 				break;
@@ -194,9 +194,9 @@ namespace SceneFader.SceneManagement {
 		/// <summary>
 		/// Unloads all scenes except for the provided array.
 		/// </summary>
-		/// <param name="scenesExcept">The list of scenes to not unload</param>
-		/// <param name="onFinished">Optional callback.</param>
-		public static void UnloadAllScenesExceptFor(string[] scenesExcept, Action onFinished = null) {
+		/// <param name="scenesExcept">The list of scenes to not unload.</param>
+		/// <param name="onComplete">Optional callback.</param>
+		public static void UnloadAllScenesExcept(string[] scenesExcept, Action onComplete = null) {
 			int sceneCount = SceneManager.sceneCount;
 			AsyncOperation[] operations = new AsyncOperation[sceneCount];
 			List<string> unloadedScenes = new List<string>();
@@ -227,7 +227,7 @@ namespace SceneFader.SceneManagement {
 				if(op == null) continue;
 
 				op.completed += _ => {
-					onFinished?.Invoke();
+					onComplete?.Invoke();
 					OnSceneUnloaded?.Invoke(unloadedScenes.ToArray());
 				};
 				break;

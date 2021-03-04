@@ -32,8 +32,8 @@ namespace SceneFader.Components {
 			SceneFaderManager.Instance.FadeAndPerformTasks(minSecondsDelay, task1);
 		}
 		
-		public void UnloadAllScenesExceptFor() {
-			IEnumerator task1 = SceneUtility.CoroutineUnloadAllScenesExceptFor(additiveScenes);
+		public void UnloadAllScenesExcept() {
+			IEnumerator task1 = SceneUtility.CoroutineUnloadAllScenesExcept(additiveScenes);
 	
 			SceneFaderManager.Instance.FadeAndPerformTasks(minSecondsDelay, task1);
 		}
