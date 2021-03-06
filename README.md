@@ -38,6 +38,13 @@ If you are using Unity 2019.2 or lower than you will not be able to install the 
 
 ---
 
+### Git submodule
+Alternatively you can also install this package as a git submodule.
+
+```console
+$ git submodule add https://github.com/Jason-Skillman/Scene-Fader-Manager.git Packages/Scene-Fader-Manager
+```
+
 ## How to setup
 You can create the manager by going to `Create/Scene Fader/Scene Fader Manager` in the `Hierarchy` window. Only one manager should exist at any given time.
 

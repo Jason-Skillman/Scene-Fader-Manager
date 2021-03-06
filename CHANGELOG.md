@@ -1,5 +1,8 @@
 # Scene Fader Manager Changelog
 
+## [1.1.1] - 03/05/2021
+- Update dependency namespace.
+
 ## [1.1.0] - 03/04/2021
 - Small API and method signature changes.
 
