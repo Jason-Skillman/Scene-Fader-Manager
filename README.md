@@ -2,7 +2,7 @@
 A scene fader manager that loads in scenes and performs tasks. Comes with an extensive `SceneUtility` class which handles scene management.
 
 ## Prerequisites
-This package uses the `Singleton-Behavior` and `StateMachineCallback` packages. It is recommended to install both of these packages before installing this one.
+This package uses the `Singleton-Behavior` and `State-Machine-Callback` packages. It is recommended to install both of these packages before installing this one.
 
 1. https://github.com/Jason-Skillman/Singleton-Behavior
 1. https://github.com/Jason-Skillman/State-Machine-Callback
