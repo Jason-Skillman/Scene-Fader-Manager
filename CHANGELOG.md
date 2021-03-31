@@ -1,5 +1,8 @@
 # Scene Fader Manager Changelog
 
+## [1.1.2] - 03/31/2021
+- Removed uneeded persistant script.
+
 ## [1.1.1] - 03/05/2021
 - Update dependency namespace.
 
