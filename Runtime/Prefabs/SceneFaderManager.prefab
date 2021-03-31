@@ -83,6 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6786339176588096009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +252,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afc3e5ad41e12174490b56e9e94b7fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minWaitTime: 0
+  dontDestroyOnLoad: 1
   fadeInMultiplier: 1.75
   fadeOutMultiplier: 1.75
   canvas: {fileID: 6786339176588096020}
+  onFadeIn:
+    m_PersistentCalls:
+      m_Calls: []
+  onTasksStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onTasksFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onFadeOut:
+    m_PersistentCalls:
+      m_Calls: []
