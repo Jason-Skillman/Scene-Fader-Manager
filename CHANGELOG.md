@@ -1,5 +1,8 @@
 # Scene Fader Manager Changelog
 
+## [1.1.3] - 07/24/2021
+- Updated assembly definition names.
+
 ## [1.1.2] - 03/31/2021
 - Removed uneeded persistant script.
 
