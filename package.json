@@ -1,7 +1,7 @@
 {
   "name": "com.jasonskillman.scenefadermanager",
   "displayName": "Scene Fader Manager",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "A scene fader manager that loads in scenes and performs tasks. Comes with an extensive SceneUtility class which handles scene management.",
   "keywords": [
     "scene management"

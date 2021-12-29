@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace SceneFader {
-	public class SceneFaderManager : SingletonBehavior<SceneFaderManager>, IStateMachineCallback {
+	public class SceneFaderManager : SingletonBehaviorPersistant<SceneFaderManager>, IStateMachineCallback {
 		
 		private const string Tag = "[SceneFaderManager] ";
 
