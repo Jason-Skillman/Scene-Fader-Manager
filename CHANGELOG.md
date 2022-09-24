@@ -1,5 +1,8 @@
 # Scene Fader Manager Changelog
 
+## [1.2.0] - 12/29/2021
+- Removed singleton package reference.
+
 ## [1.1.4] - 12/29/2021
 - Updated singleton package to 1.4.0.
 
