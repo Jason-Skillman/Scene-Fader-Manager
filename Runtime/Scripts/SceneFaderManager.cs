@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections;
-using Singleton;
 using StateMachine;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace SceneFader {
-	public class SceneFaderManager : SingletonBehaviorPersistant<SceneFaderManager>, IStateMachineCallback {
+	public class SceneFaderManager : MonoBehaviour, IStateMachineCallback {
 		
 		private const string Tag = "[SceneFaderManager] ";
 
+		public static SceneFaderManager Instance { get; private set; }
+		
 		/// <summary>
 		/// The minimum time the loading screen will wait for in seconds
 		/// </summary>
@@ -68,9 +69,13 @@ namespace SceneFader {
 
 		//public int Progress => (int) (ProgressClamp * 100);
 
-		protected override void Awake() {
-			base.Awake();
-
+		protected void Awake() {
+			if(Instance != null) {
+				Destroy(gameObject);
+				return;
+			}
+			Instance = this;
+			
 			animator = GetComponent<Animator>();
 			canvasGroup = canvas.GetComponent<CanvasGroup>();
 		}
