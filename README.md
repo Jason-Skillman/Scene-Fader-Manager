@@ -2,9 +2,8 @@
 A scene fader manager that loads in scenes and performs tasks. Comes with an extensive `SceneUtility` class which handles scene management.
 
 ## Prerequisites
-This package uses the `Singleton-Behavior` and `State-Machine-Callback` packages. It is recommended to install both of these packages before installing this one.
+This package uses the `State-Machine-Callback` packages. It is recommended to install this package before installing this one.
 
-1. https://github.com/Jason-Skillman/Singleton-Behavior
 1. https://github.com/Jason-Skillman/State-Machine-Callback
 
 ---
@@ -83,9 +82,6 @@ These are just examples for loading in and out scenes but custom coroutines can 
 |`OnFadeOut`|Fires when the manager has completely faded out and the screen is visible.|
 
 ## Components
-
-### Persistent
-The `Persistent` component is used for quickly making game objects's persistent. When you are loading in and out scenes you should always have an active camera to show the UI and hear audio. Uses `DontDestroyOnLoad()`.
 
 ### SceneUtilityFunctions
 The `SceneUtilityFunctions` component is a wraper class that uses the static functions found in the `SceneUtility`. Can be used to instantly load or unload scenes with a UI button or other event.
