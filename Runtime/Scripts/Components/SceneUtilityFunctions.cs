@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SceneFader.SceneManagement;
-using UnityEngine;
-
-namespace SceneFader.Components {
+﻿namespace JasonSkillman.SceneFader.Components {
+	using SceneFader.SceneManagement;
+	using UnityEngine;
+	
 	public class SceneUtilityFunctions : MonoBehaviour {
     
         public string[] additiveScenes;

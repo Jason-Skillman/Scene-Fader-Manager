@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using SceneFader.SceneManagement;
-using UnityEngine;
-
-namespace SceneFader.Components {
+﻿namespace JasonSkillman.SceneFader.Components {
+	using System.Collections;
+	using SceneFader.SceneManagement;
+	using UnityEngine;
+	
 	public class SceneFaderFunctions : MonoBehaviour {
 
 		public float minSecondsDelay;

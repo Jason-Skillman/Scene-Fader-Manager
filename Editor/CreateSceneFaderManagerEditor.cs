@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using SceneFader;
-using UnityEditor;
-using UnityEngine;
-using UnityEngine.EventSystems;
-
-namespace SceneFader.Editor {
+﻿namespace JasonSkillman.SceneFader.Editor {
+	using SceneFader;
+	using UnityEditor;
+	using UnityEngine;
+	using UnityEngine.EventSystems;
+	
 	public static class CreateSceneFaderManagerEditor {
 	
 		[MenuItem("GameObject/Scene Fader/Scene Fader Manager", false, 10)]
