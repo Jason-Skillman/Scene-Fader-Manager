@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-
-namespace SceneFader.SceneManagement {
+﻿namespace JasonSkillman.SceneFader.SceneManagement {
+	using System;
+	using System.Collections.Generic;
+	using UnityEngine;
+	using UnityEngine.SceneManagement;
+	
 	public static partial class SceneUtility {
 
 		private const string Tag = "[SceneUtility] ";

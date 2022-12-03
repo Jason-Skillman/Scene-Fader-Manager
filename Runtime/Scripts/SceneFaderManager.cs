@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections;
-using StateMachine;
-using UnityEngine;
-using UnityEngine.Events;
+﻿namespace JasonSkillman.SceneFader {
+	using System;
+	using System.Collections;
+	using UnityEngine;
+	using UnityEngine.Events;
+	using JasonSkillman.StateMachine;
 
-namespace SceneFader {
 	public class SceneFaderManager : MonoBehaviour, IStateMachineCallback {
 		
 		private const string Tag = "[SceneFaderManager] ";

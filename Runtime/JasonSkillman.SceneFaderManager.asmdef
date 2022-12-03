@@ -1,6 +1,6 @@
 {
     "name": "JasonSkillman.SceneFaderManager",
-    "rootNamespace": "",
+    "rootNamespace": "JasonSkillman.SceneFader",
     "references": [
         "GUID:e511c09e393afe849a69419faae1fa58"
     ],
